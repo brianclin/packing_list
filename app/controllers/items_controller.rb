@@ -24,6 +24,10 @@ class ItemsController < ApplicationController
 
   # GET /items/1/edit
   def edit
+    @categories = Category.all
+    @events = Event.all
+    @transportations = Transportation.all
+    @weathers = Weather.all
   end
 
   # POST /items
@@ -74,6 +78,6 @@ class ItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
-      params.require(:item).permit(:name, :category_id, :event_id, :weather_id, :transporation_id, :international)
+      params.require(:item).permit(:name, :category_id, :event_id, :weather_id, :transporation_id, :international, :redeye)
     end
 end

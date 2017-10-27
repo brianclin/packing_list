@@ -7,6 +7,7 @@ one:
   weather_id: 1
   transporation_id: 1
   international: false
+  redeye: false
 
 two:
   name: MyString
@@ -15,3 +16,4 @@ two:
   weather_id: 1
   transporation_id: 1
   international: false
+  redeye: false

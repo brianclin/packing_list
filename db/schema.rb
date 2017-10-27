@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171027042206) do
+ActiveRecord::Schema.define(version: 20171027190600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,8 +33,9 @@ ActiveRecord::Schema.define(version: 20171027042206) do
     t.integer "category_id"
     t.integer "event_id"
     t.integer "weather_id"
-    t.integer "transporation_id"
+    t.integer "transportation_id"
     t.boolean "international"
+    t.boolean "redeye"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
