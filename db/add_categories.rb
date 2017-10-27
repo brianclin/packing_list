@@ -8,7 +8,7 @@ def add_attribute(attribute_name)
   puts(attribute_name.capitalize)
   id = class_name.constantize.find_by("#{class_name.downcase}": attribute_name.capitalize).id
   class_name_id = class_name.downcase + "_id"
-  File.open("db.\/data.\/" + attribute_name + ".txt").each do |line|
+  File.open("db/data\/" + attribute_name.downcase + ".txt").each do |line|
     line = line.strip
     item_exists = Item.find_by(name: line)
     if !item_exists
@@ -29,7 +29,7 @@ end
 
 def add_attribute_boolean(attribute_name)
   puts(attribute_name.capitalize)
-  File.open("db.\/data.\/" + attribute_name + ".txt").each do |line|
+  File.open("db\/data\/" + attribute_name.downcase + ".txt").each do |line|
     line = line.strip
     item_exists = Item.find_by(name: line)
     if !item_exists
