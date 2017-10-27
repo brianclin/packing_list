@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  category_id: 1
+  event_id: 1
+  weather_id: 1
+  transporation_id: 1
+  international: false
+
+two:
+  name: MyString
+  category_id: 1
+  event_id: 1
+  weather_id: 1
+  transporation_id: 1
+  international: false

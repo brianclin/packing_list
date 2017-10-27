@@ -1,0 +1,51 @@
+<%= form_with(model: item, local: true) do |form| %>
+  <% if item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+      <ul>
+      <% item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :item_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :category_id %>
+    <% options = options_from_collection_for_select(@categories, 'id', 'category') %>
+    <%= form.select :category_id,  options, :include_blank => true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :event_id %>
+    <% options = options_from_collection_for_select(@events, 'id', 'event') %>
+    <%= form.select :event_id,  options, :include_blank => true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :weather_id %>
+    <% options = options_from_collection_for_select(@weathers, 'id', 'weather') %>
+    <%= form.select :weather_id,  options, :include_blank => true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :transporation_id %>
+    <% options = options_from_collection_for_select(@transportations, 'id', 'transportation') %>
+    <%= form.select :transportation_id,  options, :include_blank => true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :international %>
+    <%= form.check_box :international, id: :item_international %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
