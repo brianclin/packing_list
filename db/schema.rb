@@ -10,11 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171027190600) do
+ActiveRecord::Schema.define(version: 20171027225453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "adminpack"
+
+  create_table "answers", force: :cascade do |t|
+    t.integer "question_id"
+    t.integer "choice_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string "category"
@@ -36,6 +43,14 @@ ActiveRecord::Schema.define(version: 20171027190600) do
     t.integer "transportation_id"
     t.boolean "international"
     t.boolean "redeye"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.string "question"
+    t.integer "position"
+    t.string "table_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
