@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  question: MyString
+  position: 1
+  table_name: MyString
+
+two:
+  question: MyString
+  position: 1
+  table_name: MyString

@@ -1,0 +1,11 @@
+
+<p id="notice"><%= notice %></p>
+
+<h1> Question <%= @question.position %> </h1>
+
+<p>
+  <%= @question.question %>
+</p>
+
+<%= link_to("Previous", @question.previous) if @question.previous %>
+<%= link_to("Next", @question.next) if @question.next %>
