@@ -6,5 +6,4 @@ class Question < ApplicationRecord
   def next
     Question.where(["id > ?", id]).first
   end
-
 end

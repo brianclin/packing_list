@@ -3,9 +3,25 @@
 
 <h1> Question <%= @question.position %> </h1>
 
-<p>
-  <%= @question.question %>
-</p>
+<p><%= @question.question %></p>
+
+<div class="list-group">
+  <% if @question.id == 1 %>
+      <button type="button" class="list-group-item list-group-item-action">International</button>
+      <button type="button" class="list-group-item list-group-item-action">Domestic</button>
+  <% elsif @question.id == 5 %>
+      <button type="button" class="list-group-item list-group-item-action">0-3 days</button>
+      <button type="button" class="list-group-item list-group-item-action">4-7 days</button>
+      <button type="button" class="list-group-item list-group-item-action">8-14 days</button>
+      <button type="button" class="list-group-item list-group-item-action">14+ days</button>
+      <% else %>
+  <% unless @choices.nil? %>
+  <% @choices.each do |choice| %>
+      <button type="button" class="list-group-item list-group-item-action"><%= choice["#{@table_name}"] %></button>
+  <% end %>
+  <% end %>
+  <% end %>
+</div>
 
 <%= link_to("Previous", @question.previous) if @question.previous %>
 <%= link_to("Next", @question.next) if @question.next %>

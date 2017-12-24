@@ -10,6 +10,10 @@ class QuestionsController < ApplicationController
   # GET /questions/1
   # GET /questions/1.json
   def show
+    unless @question.table_name.empty?
+      @table_name = @question.table_name.singularize
+      @choices = @table_name.capitalize.constantize.all
+    end
   end
 
   # GET /questions/new
