@@ -12,6 +12,7 @@
       <th>Transportation</th>
       <th>International</th>
       <th>Redeye</th>
+      <th>Domestic</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -26,6 +27,7 @@
         <td><%= item.transportation_id %></td>
         <td><%= item.international %></td>
         <td><%= item.redeye %></td>
+        <td><%= item.domestic %></td>
         <td><%= link_to 'Show', item %></td>
         <td><%= link_to 'Edit', edit_item_path(item) %></td>
         <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -1,9 +1,16 @@
 <p id="notice"><%= notice %></p>
 
+<h1>Packing List</h1>
+
+<div>
 <% unless @list.nil? %>
-<% @list.each do |item| %>
+  <% @list.each do |item| %>
     <div>
-    <%= item.name %>
+      <input type="checkbox">
+      <%= item.name %>
     </div>
+  <% end %>
 <% end %>
-<% end %>
+</div>
+
+<%= link_to 'Restart', questions_path, class: 'btn' %>
