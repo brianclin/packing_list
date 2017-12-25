@@ -1,7 +1,9 @@
 <p id="notice"><%= notice %></p>
 
+<% unless @list.nil? %>
 <% @list.each do |item| %>
     <div>
     <%= item.name %>
     </div>
+<% end %>
 <% end %>

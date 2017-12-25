@@ -5,15 +5,13 @@ class AnswersController < ApplicationController
   # GET /answers.json
   def index
     @answer = Answer.new
-    # @answer.set_choices session[:choices]
-    # session[:choices] = @answer.get_choices
-    @choice = session[:choices]
-    query = @choice.join(" OR ")
-    @list = Item.where(query).all
+    @choice = @answer.get_choices
     if @choice.nil?
-      @choice = {}
+      @choice = []
+    else
+      query = @choice.join(" OR ")
+      @list = Item.where(query).all
     end
-    # @choice = @answer.get_choices
   end
 
   # GET /answers/1
@@ -36,7 +34,6 @@ class AnswersController < ApplicationController
     puts params.inspect
     @answer = Answer.new
     @answer.add_choice(params[:text])
-    session[:choices] = @answer.get_choices
   end
 
   # PATCH/PUT /answers/1

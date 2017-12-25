@@ -10,7 +10,7 @@ class Answer < ApplicationRecord
   end
 
     def add_choice(value)
-    unless @@choices.include? value
+    if @@choices.nil? || @@choices != value
       @@choices.push value
     end
   end

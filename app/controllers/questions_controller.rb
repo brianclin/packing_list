@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :clear_session, only: [:index]
 
   # GET /questions
   # GET /questions.json
@@ -75,5 +76,10 @@ class QuestionsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
       params.require(:question).permit(:question, :position, :table_name)
+    end
+
+    def clear_session
+      @answer = Answer.new
+      @answer.set_choices([])
     end
 end
