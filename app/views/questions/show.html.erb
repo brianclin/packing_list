@@ -8,7 +8,7 @@
 <% if @question.id == 1 %>
   <div class="list-group" data-toggle="items">
     <%= button_to('International', { controller: answers_path, text: 'international = true' }, class: 'btn', form_class: 'row form-group') %>
-    <%= button_to('Domestic', { controller: answers_path, text: 'international = false' }, class: 'btn', form_class: 'row form-group') %>
+    <%= button_to('Domestic', { controller: answers_path, text: 'domestic = true' }, class: 'btn', form_class: 'row form-group') %>
 <% elsif @question.id == 5 %>
   <div class="list-group">
     <%= button_to('0-3 days', { :controller => 'questions', :id => @question.id }, class: 'list-group-item list-group-item-action', form_class: 'row form-group') %>

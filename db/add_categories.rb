@@ -63,6 +63,4 @@ add_attribute("Bus")
 
 add_attribute_boolean("International")
 add_attribute_boolean("Redeye")
-
-# add_category("Toiletries")
-# add_category("Electronics")
+add_attribute_boolean('Domestic')
