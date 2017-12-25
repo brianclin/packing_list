@@ -4,7 +4,16 @@ class AnswersController < ApplicationController
   # GET /answers
   # GET /answers.json
   def index
-    @answers = Answer.all
+    @answer = Answer.new
+    # @answer.set_choices session[:choices]
+    # session[:choices] = @answer.get_choices
+    @choice = session[:choices]
+    query = @choice.join(" OR ")
+    @list = Item.where(query).all
+    if @choice.nil?
+      @choice = {}
+    end
+    # @choice = @answer.get_choices
   end
 
   # GET /answers/1
@@ -24,17 +33,10 @@ class AnswersController < ApplicationController
   # POST /answers
   # POST /answers.json
   def create
-    @answer = Answer.new(answer_params)
-
-    respond_to do |format|
-      if @answer.save
-        format.html { redirect_to @answer, notice: 'Answer was successfully created.' }
-        format.json { render :show, status: :created, location: @answer }
-      else
-        format.html { render :new }
-        format.json { render json: @answer.errors, status: :unprocessable_entity }
-      end
-    end
+    puts params.inspect
+    @answer = Answer.new
+    @answer.add_choice(params[:text])
+    session[:choices] = @answer.get_choices
   end
 
   # PATCH/PUT /answers/1

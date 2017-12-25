@@ -12,7 +12,8 @@ class QuestionsController < ApplicationController
   def show
     unless @question.table_name.empty?
       @table_name = @question.table_name.singularize
-      @choices = @table_name.capitalize.constantize.all
+      @table = @table_name.capitalize.constantize
+      @choices = @table.all
     end
   end
 
