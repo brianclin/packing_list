@@ -698,5 +698,8 @@ Released under the MIT license
 //
 
 = require turbolinks
+//= require listgroup
+//= require jquery
+//= require jquery_ujs
 // = require_tree .
 ;
