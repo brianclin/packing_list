@@ -6,7 +6,7 @@ class AnswersController < ApplicationController
   def index
     @answer = Answer.new
     @choice = @answer.get_choices
-    if @choice.nil?
+    if @choice.empty? || @choice.nil?
       @choice = []
     else
       query = @choice.join(" OR ")
