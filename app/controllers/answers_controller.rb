@@ -29,7 +29,11 @@ class AnswersController < ApplicationController
           @combined_list.push('2 pairs of extra contacts')
           @combined_list.push('10-17 pairs of socks')
           @combined_list.push('10-17 pairs of underwear')
-        when '14+ days'
+        when 'Washer/Dryer'
+          @combined_list.push('2 pairs of extra contacts')
+          @combined_list.push('7-9 pairs of socks')
+          @combined_list.push('7-9 pairs of underwear')
+        when 'No Washer/Dryer'
           @combined_list.push('2 pairs of extra contacts')
           @combined_list.push('17+ pairs of socks')
           @combined_list.push('17+ pairs of underwear')

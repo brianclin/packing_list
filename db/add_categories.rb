@@ -62,6 +62,6 @@ add_attribute("Boat")
 add_attribute("Bus")
 
 add_attribute_boolean("International")
-add_attribute_boolean("Redeye")
+add_attribute_boolean("Normal")
 add_attribute_boolean('Domestic')
 add_attribute_boolean("Always")

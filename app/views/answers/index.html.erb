@@ -1,8 +1,7 @@
-<p id="notice"><%= notice %></p>
-
+<div class="container-fluid">
 <h1>Packing List</h1>
 
-<div>
+  <p>
 <% unless @combined_list.nil? %>
   <% @combined_list.each do |item| %>
     <div>
@@ -11,6 +10,8 @@
     </div>
   <% end %>
 <% end %>
-</div>
+  </p>
 
 <%= link_to 'Restart', questions_path %>
+
+</div>
