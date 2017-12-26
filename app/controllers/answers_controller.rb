@@ -34,6 +34,7 @@ class AnswersController < ApplicationController
     puts params.inspect
     @answer = Answer.new
     @answer.add_choice(params[:text])
+    redirect_back fallback_location: { action: "show", id: params[:id] }
   end
 
   # PATCH/PUT /answers/1
