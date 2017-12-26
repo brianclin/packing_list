@@ -7,19 +7,19 @@
 
 <% if @question.id == 1 %>
   <div class="list-group" data-toggle="items">
-    <%= button_to('International', { controller: answers_path, text: 'international = true' }, class: 'btn', form_class: 'row form-group') %>
-    <%= button_to('Domestic', { controller: answers_path, text: 'domestic = true' }, class: 'btn', form_class: 'row form-group') %>
+    <%= button_to('International', { controller: answers_path, text: 'international = true' }, class: 'btn', form_class: 'row form-group', remote: true) %>
+    <%= button_to('Domestic', { controller: answers_path, text: 'domestic = true' }, class: 'btn', form_class: 'row form-group', remote: true) %>
 <% elsif @question.id == 5 %>
   <div class="list-group">
-    <%= button_to('0-3 days', { :controller => 'questions', :id => @question.id }, class: 'list-group-item list-group-item-action', form_class: 'row form-group') %>
-    <%= button_to('4-7 days', { :controller => 'questions', :id => @question.id }, class: 'list-group-item list-group-item-action', form_class: 'row form-group') %>
-    <%= button_to('8-14 days', { :controller => 'questions', :id => @question.id }, class: 'list-group-item list-group-item-action', form_class: 'row form-group') %>
-    <%= button_to('14+ days', { :controller => 'questions', :id => @question.id }, class: 'list-group-item list-group-item-action', form_class: 'row form-group') %>
+    <%= button_to('0-3 days', { :controller => 'questions', :id => @question.id }, class: 'list-group-item list-group-item-action', form_class: 'row form-group', remote: true) %>
+    <%= button_to('4-7 days', { :controller => 'questions', :id => @question.id }, class: 'list-group-item list-group-item-action', form_class: 'row form-group', remote: true) %>
+    <%= button_to('8-14 days', { :controller => 'questions', :id => @question.id }, class: 'list-group-item list-group-item-action', form_class: 'row form-group', remote: true) %>
+    <%= button_to('14+ days', { :controller => 'questions', :id => @question.id }, class: 'list-group-item list-group-item-action', form_class: 'row form-group', remote: true) %>
 <% else %>
   <div class="list-group" data-toggle="items">
   <% unless @choices.nil? %>
     <% @choices.each do |choice| %>
-      <%= button_to(choice["#{@table_name}"], { controller: answers_path, text: "#{@table_name}_id = " + @table.find_by(@table_name.to_s => choice["#{@table_name}"]).id.to_s }, class: 'btn', form_class: 'row form-group') %>
+      <%= button_to(choice["#{@table_name}"], { controller: answers_path, text: "#{@table_name}_id = " + @table.find_by(@table_name.to_s => choice["#{@table_name}"]).id.to_s }, class: 'btn', form_class: 'row form-group', remote: true) %>
     <% end %>
   <% end %>
 <% end %>
