@@ -5,12 +5,35 @@ class AnswersController < ApplicationController
   # GET /answers.json
   def index
     @answer = Answer.new
+    @days = @answer.get_days
     @choice = @answer.get_choices
-    if @choice.empty? || @choice.nil?
-      @choice = []
-    else
+    unless @choice.empty? || @choice.nil?
       query = @choice.join(" OR ")
       @list = Item.where(query).all
+    end
+    @combined_list = []
+    @list.each do |item|
+      @combined_list.push(item.name)
+    end
+    unless @days.empty? || @days.nil?
+      case @days
+        when '0-3 days'
+          @combined_list.push('1 pair of extra contacts')
+          @combined_list.push('3-5 pairs of socks')
+          @combined_list.push('3-5 pairs of underwear')
+        when '4-7 days'
+          @combined_list.push('1 pair of extra contacts')
+          @combined_list.push('7-9 pairs of socks')
+          @combined_list.push('7-9 pairs of socks')
+        when '8-14 days'
+          @combined_list.push('2 pairs of extra contacts')
+          @combined_list.push('10-17 pairs of socks')
+          @combined_list.push('10-17 pairs of socks')
+        when '14+ days'
+          @combined_list.push('2 pairs of extra contacts')
+          @combined_list.push('17+ pairs of socks')
+          @combined_list.push('17+ pairs of socks')
+      end
     end
   end
 
@@ -31,9 +54,12 @@ class AnswersController < ApplicationController
   # POST /answers
   # POST /answers.json
   def create
-    puts params.inspect
     @answer = Answer.new
-    @answer.add_choice(params[:text])
+    if params[:id] == '5'
+      @answer.set_days(params[:text])
+    else
+      @answer.add_choice(params[:text])
+    end
     redirect_back fallback_location: { action: "show", id: params[:id] }
   end
 

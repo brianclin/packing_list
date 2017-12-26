@@ -3,11 +3,11 @@
 <h1>Packing List</h1>
 
 <div>
-<% unless @list.nil? %>
-  <% @list.each do |item| %>
+<% unless @combined_list.nil? %>
+  <% @combined_list.each do |item| %>
     <div>
       <input type="checkbox">
-      <%= item.name %>
+      <%= item %>
     </div>
   <% end %>
 <% end %>
