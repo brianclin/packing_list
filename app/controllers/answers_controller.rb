@@ -24,15 +24,15 @@ class AnswersController < ApplicationController
         when '4-7 days'
           @combined_list.push('1 pair of extra contacts')
           @combined_list.push('7-9 pairs of socks')
-          @combined_list.push('7-9 pairs of socks')
+          @combined_list.push('7-9 pairs of underwear')
         when '8-14 days'
           @combined_list.push('2 pairs of extra contacts')
           @combined_list.push('10-17 pairs of socks')
-          @combined_list.push('10-17 pairs of socks')
+          @combined_list.push('10-17 pairs of underwear')
         when '14+ days'
           @combined_list.push('2 pairs of extra contacts')
           @combined_list.push('17+ pairs of socks')
-          @combined_list.push('17+ pairs of socks')
+          @combined_list.push('17+ pairs of underwear')
       end
     end
   end
