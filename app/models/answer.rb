@@ -1,6 +1,10 @@
 class Answer < ApplicationRecord
   @@choices = []
 
+  def initialize
+    @@choices.push('always = true')
+  end
+
   def get_choices
     @@choices
   end
