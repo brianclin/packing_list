@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'English'
+
 def add_attribute(attribute_name)
   class_name = case attribute_name
                when 'Toiletries', 'Electronics', 'Clothes' then class_name = 'Category'
@@ -50,6 +52,28 @@ def add_attribute_boolean(attribute_name)
     end
   end
 end
+
+def add_questions
+  puts('Questions')
+  File.open('db/data/questions.txt').each do |line|
+    line = line.split(',')
+    question = line[0].strip
+    table_name = line[1].nil? ? '' : line[1].strip
+    question_exists = Question.find_by(id: $INPUT_LINE_NUMBER)
+    question_updates = Question.find_by(question: question, position: $INPUT_LINE_NUMBER, table_name: table_name)
+    if !question_exists
+      puts("Adding question #{question} #{table_name} #{$INPUT_LINE_NUMBER}")
+      question = Question.new(question: question, position: $INPUT_LINE_NUMBER, table_name: table_name)
+      question.save
+    elsif !question_updates
+      puts("Updated question #{$INPUT_LINE_NUMBER}")
+      question_exists.update(question: question, position: $INPUT_LINE_NUMBER, table_name: table_name)
+      question_exists.save
+    end
+  end
+end
+
+add_questions
 
 add_attribute('Toiletries')
 add_attribute('Electronics')

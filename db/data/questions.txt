@@ -1,0 +1,5 @@
+Is it international or domestic travel?
+What transportation are you taking?, transportation
+Which events are you participating in?, events
+What is the weather going to be like?, weathers
+How long is the trip?
