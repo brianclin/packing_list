@@ -28,4 +28,7 @@ class Answer < ApplicationRecord
     @@days = days
   end
 
+  def remove_choice(value)
+    @@choices.delete_if {|choice| choice == value }
+  end
 end

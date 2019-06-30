@@ -3,10 +3,13 @@
 
 <p><%= @question.question %></p>
 
-
 <% if @question.id == 1 %>
-    <%= button_to('International', { controller: answers_path, text: 'international = true', id: @question.id }, class: 'btn btn-primary', form_class: 'row-fluid form-group') %>
-    <%= button_to('Domestic', { controller: answers_path, text: 'domestic = true' }, class: 'btn btn-primary', form_class: 'row-fluid form-group') %>
+      <div class="row-fluid form-group">
+        <button type="button" class="btn btn-primary btn-brian" data-toggle="button" aria-pressed="false" autocomplete="off">International</button>
+      </div>
+      <div class="row-fluid form-group">
+        <button type="button" class="btn btn-primary btn-brian" data-toggle="button" aria-pressed="false" autocomplete="off">Domestic</button>
+      </div>
 <% elsif @question.id == 5 %>
     <%= button_to('0-3 days', { controller: answers_path, text: '0-3 days', id: @question.id }, class: 'btn btn-primary', form_class: 'row-fluid form-group') %>
     <%= button_to('4-7 days', { controller: answers_path, text: '4-7 days', id: @question.id }, class: 'btn btn-primary', form_class: 'row-fluid form-group') %>
@@ -51,3 +54,26 @@
 <%= link_to("Next", @question.next) if @question.next %>
 <%= link_to("Finish", :controller => :answers, :action => :index) if @question.next.nil? %>
 </div>
+
+<script>
+    $("button.btn-brian").click(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        if(this.style.backgroundColor == 'darkblue') {
+            this.style.backgroundColor = 'blue';
+            $.ajax({
+                url: '/answers/remove',
+                type: 'POST',
+                data: { text: "international = true", id: 1 },
+                contentType:'application/x-www-form-urlencoded',
+            });
+        }
+        else {
+            this.style.backgroundColor ='darkblue';
+            $.post( "/answers", { text: `${this.textContent.toLowerCase()} = true`, id: 1 } );
+            }
+    });
+</script>

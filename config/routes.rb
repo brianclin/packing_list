@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :weathers
   resources :categories
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  post 'answers/remove'
 
   root 'questions#index'
 end

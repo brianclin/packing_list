@@ -91,6 +91,12 @@ class AnswersController < ApplicationController
     end
   end
 
+  def remove
+    @answer = Answer.new
+    @answer.remove_choice(params[:text])
+    redirect_back fallback_location: { action: "show", id: params[:id] }
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_answer
