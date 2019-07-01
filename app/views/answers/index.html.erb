@@ -1,17 +1,15 @@
 <div class="container-fluid">
-<h1>Packing List</h1>
-
+  <h1>Packing List</h1>
   <p>
-<% unless @combined_list.nil? %>
-  <% @combined_list.each do |item| %>
-    <div>
-      <input type="checkbox" />
-      <%= item %>
-    </div>
+    <% unless @combined_list.nil? %>
+        <% @combined_list.each do |item| %>
+          <div>
+            <input type="checkbox" />
+            <%= item %>
+          </div>
+      <% end %>
   <% end %>
-<% end %>
   </p>
 
-<%= link_to 'Restart', questions_path %>
-
+  <%= link_to 'Restart', questions_path unless params[:iframe] %>
 </div>
