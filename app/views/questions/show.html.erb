@@ -1,5 +1,5 @@
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid" style="height: 100vh;">
+  <div class="row" style="height: 100vh;">
     <div class="col-6">
       <h1> Question <%= @question.position %> </h1>
       <p><%= @question.question %></p>
@@ -85,7 +85,7 @@
             }
         }
         else if(button.style.backgroundColor == 'darkblue') {
-            button.style.backgroundColor = 'blue';
+            button.style.backgroundColor = '#007bff';
             $.post( "/answers/remove", { text: text, id: id} );
         }
         else {
