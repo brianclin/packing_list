@@ -73,6 +73,24 @@ def add_questions
   end
 end
 
+def add_categories
+  puts('Categories')
+  File.open('db/data/categories.txt').each do |line|
+    line = line.strip
+    category_exists = Category.find_by(category: line)
+    if !category_exists
+      puts("Adding category #{line}")
+      category = Category.new(category: line)
+      category.save
+    elsif !category_exists
+      puts("Updated category #{line}")
+      category_exists.update(category: line)
+      category_exists.save
+    end
+  end
+end
+
+add_categories
 add_questions
 
 add_attribute('Toiletries')
