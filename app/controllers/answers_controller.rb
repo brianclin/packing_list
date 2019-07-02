@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AnswersController < ApplicationController
   before_action :set_answer, only: [:show, :edit, :update, :destroy]
 
@@ -7,36 +9,29 @@ class AnswersController < ApplicationController
     @answer = Answer.new
     @days = @answer.get_days
     @choice = @answer.get_choices
-    unless @choice.empty? || @choice.nil?
-      query = @choice.join(" OR ")
-      @list = Item.where(query).all
-    end
-    @combined_list = []
-    @list.each do |item|
-      @combined_list.push(item.name)
-    end
+    @combined_list = @answer.list
     unless @days.empty? || @days.nil?
       case @days
-        when '0-3 days'
-          @combined_list.push('1 pair of extra contacts')
-          @combined_list.push('3-5 pairs of socks')
-          @combined_list.push('3-5 pairs of underwear')
-        when '4-7 days'
-          @combined_list.push('1 pair of extra contacts')
-          @combined_list.push('7-9 pairs of socks')
-          @combined_list.push('7-9 pairs of underwear')
-        when '8-14 days'
-          @combined_list.push('2 pairs of extra contacts')
-          @combined_list.push('10-17 pairs of socks')
-          @combined_list.push('10-17 pairs of underwear')
-        when 'Washer/Dryer'
-          @combined_list.push('2 pairs of extra contacts')
-          @combined_list.push('7-9 pairs of socks')
-          @combined_list.push('7-9 pairs of underwear')
-        when 'No Washer/Dryer'
-          @combined_list.push('2 pairs of extra contacts')
-          @combined_list.push('17+ pairs of socks')
-          @combined_list.push('17+ pairs of underwear')
+      when '0-3 days'
+        @combined_list.push('1 pair of extra contacts')
+        @combined_list.push('3-5 pairs of socks')
+        @combined_list.push('3-5 pairs of underwear')
+      when '4-7 days'
+        @combined_list.push('1 pair of extra contacts')
+        @combined_list.push('7-9 pairs of socks')
+        @combined_list.push('7-9 pairs of underwear')
+      when '8-14 days'
+        @combined_list.push('2 pairs of extra contacts')
+        @combined_list.push('10-17 pairs of socks')
+        @combined_list.push('10-17 pairs of underwear')
+      when 'Washer/Dryer'
+        @combined_list.push('2 pairs of extra contacts')
+        @combined_list.push('7-9 pairs of socks')
+        @combined_list.push('7-9 pairs of underwear')
+      when 'No Washer/Dryer'
+        @combined_list.push('2 pairs of extra contacts')
+        @combined_list.push('17+ pairs of socks')
+        @combined_list.push('17+ pairs of underwear')
       end
     end
   end
@@ -44,6 +39,7 @@ class AnswersController < ApplicationController
   # GET /answers/1
   # GET /answers/1.json
   def show
+    # do nothing
   end
 
   # GET /answers/new
@@ -53,6 +49,7 @@ class AnswersController < ApplicationController
 
   # GET /answers/1/edit
   def edit
+    # do nothing
   end
 
   # POST /answers
@@ -64,7 +61,7 @@ class AnswersController < ApplicationController
     else
       @answer.add_choice(params[:text])
     end
-    redirect_back fallback_location: { action: "show", id: params[:id] }
+    redirect_back fallback_location: { action: 'show', id: params[:id] }
   end
 
   # PATCH/PUT /answers/1
@@ -93,18 +90,20 @@ class AnswersController < ApplicationController
 
   def remove
     @answer = Answer.new
+    @answer.remove_from_list(params[:item]) if params[:item]
     @answer.remove_choice(params[:text])
-    redirect_back fallback_location: { action: "show", id: params[:id] }
+    redirect_back fallback_location: { action: 'show', id: params[:id] }
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_answer
-      @answer = Answer.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def answer_params
-      params.require(:answer).permit(:question_id, :choice_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_answer
+    @answer = Answer.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def answer_params
+    params.require(:answer).permit(:question_id, :choice_id)
+  end
 end

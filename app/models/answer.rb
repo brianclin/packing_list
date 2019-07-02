@@ -1,6 +1,7 @@
 class Answer < ApplicationRecord
   @@choices = []
   @@days = ''
+  @@removed_items = []
 
   def initialize
     @@choices.push('always = true')
@@ -29,6 +30,32 @@ class Answer < ApplicationRecord
   end
 
   def remove_choice(value)
-    @@choices.delete_if {|choice| choice == value }
+    @@choices.delete_if { |choice| choice == value }
+  end
+
+  def remove_from_list(item)
+    @@removed_items.push(item.strip)
+  end
+
+  def removed_items
+    @@removed_items
+  end
+
+  def set_removed_items(items)
+    @@removed_items = items
+  end
+
+  def list
+    combined_list = []
+    unless @@choices.empty? || @@choices.nil?
+      query = @@choices.join(' OR ')
+      list = Item.where(query).all
+    end
+    list.each do |item|
+      combined_list.push(item.name)
+    end
+    puts @@removed_items
+    puts @@choices
+    @@current_list = combined_list - @@removed_items
   end
 end

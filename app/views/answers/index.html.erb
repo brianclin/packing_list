@@ -3,13 +3,38 @@
   <p>
     <% unless @combined_list.nil? %>
         <% @combined_list.each do |item| %>
-          <div>
-            <input type="checkbox" />
-            <%= item %>
-          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" />
+                <label class="form-check-label">
+                  <%= item %>
+                </label>
+                <% unless params[:iframe] %>
+                    <div class="d-inline">
+                      <button class="btn-link" style="border: none; color: red;" onclick="deleteItem(this)">X</button>
+                    </div>
+                <% end %>
+              </div>
       <% end %>
   <% end %>
   </p>
 
   <%= link_to 'Restart', questions_path unless params[:iframe] %>
 </div>
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    function deleteItem(button) {
+        inline = button.parentNode
+        formCheck = inline.parentNode
+        col = formCheck.parentNode
+        col.removeChild(formCheck)
+        item = formCheck.getElementsByClassName("form-check-label")[0].textContent
+        $.post( "/answers/remove", { item: item} )
+    }
+</script>
