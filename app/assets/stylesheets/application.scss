@@ -8,8 +8,23 @@
  * You're free to add application-wide styles to this file and they'll appear at the bottom of the
  * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
  * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
+ * It is generally better to create  a new file per style scope.
  *
  */
 
 @import "bootstrap";
+@import "questions";
+@import "answers";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+@font-face {
+  font-family: 'Avenir-Medium';
+  src: url('/assets/fonts/AvenirLTStd-Medium.otf');
+  font-family: 'Avenir-Light';
+  src: url('/assets/fonts/avenirltstd-light.otf');
+}
+
+.header-icon {
+  color: #97d2ff;
+}

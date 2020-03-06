@@ -1,3 +1,18 @@
 // Place all the styles related to the Questions controller here.
 // They will automatically be included in application.scss.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+
+.question-header {
+  font-family: 'Avenir-Medium';
+}
+
+.question-text {
+  font-family: 'Avenir-Light'
+}
+
+.question-button {
+  text-transform: uppercase;
+  font-family: 'Avenir-Light'
+}
