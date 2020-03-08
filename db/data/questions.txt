@@ -1,4 +1,4 @@
-Is it international or domestic travel?
+Will you be traveling international or domestic? If both select international.
 What transportation are you taking?, transportation
 Which events are you participating in?, events
 What is the weather going to be like?, weathers

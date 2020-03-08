@@ -96,6 +96,6 @@
                 button.style.backgroundColor ='darkblue';
             $.post( "/answers", { text: text, id: id} );
         }
-        document.getElementById('packing_list').contentWindow.location.reload();
+        document.getElementById('packing_list').contentWindow.location.reload(true);
     }
 </script>
