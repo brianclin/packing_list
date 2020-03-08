@@ -1,7 +1,8 @@
 <div class="container-fluid" style="height: 100vh;">
   <div class="row" style="height: 100vh;">
     <div class="col-6">
-      <h1 class="question-header"> Question <%= @question.position %> </h1>
+      <h1 style="text-align: center; width: 50%"><%= icon('fa', 'plane', class: 'header-icon') %></h1>
+      <h2 class="question-header"> Question <%= @question.position %> </h2>
       <p class=""question-text"><%= @question.question %></p>
       <% if @question.id == 1 %>
           <div class="row-fluid form-group">
@@ -96,6 +97,6 @@
                 button.style.backgroundColor ='darkblue';
             $.post( "/answers", { text: text, id: id} );
         }
-        document.getElementById('packing_list').contentWindow.location.reload(true);
+        setTimeout(function(){document.getElementById('packing_list').contentWindow.location.reload(true);}, 100)
     }
 </script>
