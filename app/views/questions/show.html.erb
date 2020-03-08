@@ -68,9 +68,9 @@
           <%= link_to(icon('fas', 'angle-double-left', class: 'page-arrow'), @question.previous) if @question.previous %>
           <span id="page-footer"><%= @question.position  %> of <%= Question.count %></span>
           <%= link_to(icon('fas', 'angle-double-right', class: 'page-arrow'), @question.next) if @question.next %>
+          <%= link_to("Finish", :controller => :answers, :action => :index) if @question.next.nil? %>
           </span>
       </div>
-      <div><%= link_to("Finish", :controller => :answers, :action => :index) if @question.next.nil? %></div>
     </div>
     <div class="embed-responsive embed-responsive-16by9 col-6">
       <iframe id="packing_list" class="embed-responsive-item" src="/answers?iframe=true" allowfullscreen></iframe>
