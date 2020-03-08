@@ -2,7 +2,25 @@
   <h1 style="text-align: center; width: 50%"><%= icon('fas', 'luggage-cart', class: 'header-icon') %></h1>
   <p>
     <% unless @combined_list.nil? %>
-        <% @combined_list.each do |item| %>
+        <% @combined_list.keys.each do |key| %>
+          <!--<% if !@combined_list[key].empty? %>-->
+            <div>
+              <h4>
+              <% case key %>
+              <% when :clothing %>
+                <%= icon('fas', 'tshirt', class: 'header-icon') %>
+              <% when :electronics %>
+                  <%= icon('fas', 'laptop', class: 'header-icon') %>
+              <% when :toiletries %>
+                  <%= icon('fas', 'tooth', class: 'header-icon') %>
+              <% else %>
+                  <%= icon('fas', 'shopping-bag', class: 'header-icon') %>
+              <% end %>
+              <%= key.upcase %>
+              </h4>
+            </div>
+          <!--<% end %>-->
+          <% @combined_list[key].each do |item| %>
           <div class="row">
             <div class="col">
               <div class="form-check">
@@ -16,6 +34,7 @@
                     </div>
                 <% end %>
               </div>
+      <% end %>
       <% end %>
   <% end %>
   </p>

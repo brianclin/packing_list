@@ -13,25 +13,25 @@ class AnswersController < ApplicationController
     unless @days.empty? || @days.nil?
       case @days
       when '0-3 days'
-        @combined_list.push('1 pair of extra contacts')
-        @combined_list.push('3-5 pairs of socks')
-        @combined_list.push('3-5 pairs of underwear')
+        @combined_list[:clothing].push('1 pair of extra contacts')
+        @combined_list[:clothing].push('3-5 pairs of socks')
+        @combined_list[:clothing].push('3-5 pairs of underwear')
       when '4-7 days'
-        @combined_list.push('1 pair of extra contacts')
-        @combined_list.push('7-9 pairs of socks')
-        @combined_list.push('7-9 pairs of underwear')
+        @combined_list[:clothing].push('1 pair of extra contacts')
+        @combined_list[:clothing].push('7-9 pairs of socks')
+        @combined_list[:clothing].push('7-9 pairs of underwear')
       when '8-14 days'
-        @combined_list.push('2 pairs of extra contacts')
-        @combined_list.push('10-17 pairs of socks')
-        @combined_list.push('10-17 pairs of underwear')
+        @combined_list[:clothing].push('2 pairs of extra contacts')
+        @combined_list[:clothing].push('10-17 pairs of socks')
+        @combined_list[:clothing].push('10-17 pairs of underwear')
       when 'Washer/Dryer'
-        @combined_list.push('2 pairs of extra contacts')
-        @combined_list.push('7-9 pairs of socks')
-        @combined_list.push('7-9 pairs of underwear')
+        @combined_list[:clothing].push('2 pairs of extra contacts')
+        @combined_list[:clothing].push('7-9 pairs of socks')
+        @combined_list[:clothing].push('7-9 pairs of underwear')
       when 'No Washer/Dryer'
-        @combined_list.push('2 pairs of extra contacts')
-        @combined_list.push('17+ pairs of socks')
-        @combined_list.push('17+ pairs of underwear')
+        @combined_list[:clothing].push('2 pairs of extra contacts')
+        @combined_list[:clothing].push('17+ pairs of socks')
+        @combined_list[:clothing].push('17+ pairs of underwear')
       end
     end
   end

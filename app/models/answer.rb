@@ -47,17 +47,30 @@ class Answer < ApplicationRecord
     @@removed_items = items
   end
 
+
   def list
-    combined_list = []
+    combined_list  = { clothing: [], electronics: [], toiletries: [], accessories: [] }
     unless @@choices.empty? || @@choices.nil?
       query = @@choices.join(' OR ')
       list = Item.where(query).all
     end
     list.each do |item|
-      combined_list.push(item.name)
+      if item.clothing?
+        combined_list[:clothing].push(item.name)
+      elsif item.category_id == 1
+        combined_list[:toiletries].push(item.name)
+      elsif item.category_id == 2
+        combined_list[:electronics].push(item.name)
+      else
+        combined_list[:accessories].push(item.name)
+      end
     end
     puts @@removed_items
     puts @@choices
-    @@current_list = combined_list - @@removed_items
+    combined_list.each do |key, val|
+      combined_list[key] = combined_list[key] - @@removed_items
+    end
+    puts combined_list
+    combined_list
   end
 end
