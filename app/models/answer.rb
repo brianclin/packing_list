@@ -5,6 +5,8 @@ class Answer < ApplicationRecord
 
   def initialize
     @@choices.push('always = true')
+    @@choices.push('category_id = 1')
+    @@choices.push('category_id = 2')
   end
 
   def get_choices
