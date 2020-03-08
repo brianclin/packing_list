@@ -6,33 +6,33 @@
       <p class=""question-text"><%= @question.question %></p>
       <% if @question.id == 1 %>
           <div class="row-fluid form-group">
-            <button type="button" class="btn btn-primary btn-toggle question-button" onclick="toggleButton(this, 'international = true', <%= @question.id %>)" data-toggle="button" aria-pressed="false" autocomplete="off">International</button>
+            <button type="button" class="btn question-button btn-toggle" onclick="toggleButton(this, 'international = true', <%= @question.id %>)" data-toggle="button" aria-pressed="false" autocomplete="off">International</button>
           </div>
           <div class="row-fluid form-group">
-            <button type="button" class="btn btn-primary btn-toggle question-button" onclick="toggleButton(this, 'domestic = true', <%= @question.id %>)" data-toggle="button" aria-pressed="false" autocomplete="off">Domestic</button>
+            <button type="button" class="btn question-button btn-toggle" onclick="toggleButton(this, 'domestic = true', <%= @question.id %>)" data-toggle="button" aria-pressed="false" autocomplete="off">Domestic</button>
           </div>
       <% elsif @question.id == 5 %>
           <div class="row-fluid form-group">
-            <button type="button" class="btn btn-primary btn-toggle" onclick="toggleButton(this, '0-3 days', <%= @question.id %>)" data-toggle="button" aria-pressed="false" autocomplete="off">0-3 days</button>
+            <button type="button" class="btn question-button btn-toggle" onclick="toggleButton(this, '0-3 days', <%= @question.id %>)" data-toggle="button" aria-pressed="false" autocomplete="off">0-3 days</button>
           </div>
           <div class="row-fluid form-group">
-            <button type="button" class="btn btn-primary btn-toggle" onclick="toggleButton(this, '4-7 days', <%= @question.id %>)" data-toggle="button" aria-pressed="false" autocomplete="off">4-7 days</button>
+            <button type="button" class="btn question-button btn-toggle" onclick="toggleButton(this, '4-7 days', <%= @question.id %>)" data-toggle="button" aria-pressed="false" autocomplete="off">4-7 days</button>
           </div>
           <div class="row-fluid form-group">
-            <button type="button" class="btn btn-primary btn-toggle" onclick="toggleButton(this, '8-14 days', <%= @question.id %>)" data-toggle="button" aria-pressed="false" autocomplete="off">8-14 days</button>
+            <button type="button" class="btn question-button btn-toggle" onclick="toggleButton(this, '8-14 days', <%= @question.id %>)" data-toggle="button" aria-pressed="false" autocomplete="off">8-14 days</button>
           </div>
           <p>
           <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn question-button dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           14+ days
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <h6 class="dropdown-header">Is there a washer/dryer?</h6>
               <div class="row-fluid form-group">
-                <button type="button" class="btn btn-primary dropdown-item" onclick="toggleButton(this, 'Washer/Dryer', <%= @question.id %>)" data-toggle="button" aria-pressed="false" autocomplete="off">Yes</button>
+                <button type="button" class="btn question-button dropdown-item" onclick="toggleButton(this, 'Washer/Dryer', <%= @question.id %>)" data-toggle="button" aria-pressed="false" autocomplete="off">Yes</button>
               </div>
               <div class="row-fluid form-group">
-                <button type="button" class="btn btn-primary dropdown-item" onclick="toggleButton(this, 'No Washer/Dryer', <%= @question.id %>)" data-toggle="button" aria-pressed="false" autocomplete="off">No</button>
+                <button type="button" class="btn question-button dropdown-item" onclick="toggleButton(this, 'No Washer/Dryer', <%= @question.id %>)" data-toggle="button" aria-pressed="false" autocomplete="off">No</button>
               </div>
             </div>
           </div>
@@ -43,7 +43,7 @@
                   <% if choice["#{@table_name}"] == 'Airplane' %>
                       <p>
                       <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn question-button dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Airplane
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -55,15 +55,20 @@
                       </p>
                   <% else %>
                       <div class="row-fluid form-group">
-                        <button type="button" class="btn btn-primary btn-toggle" onclick="toggleButton(this, '<%= "#{@table_name}_id = #{@table.find_by(@table_name.to_s => choice["#{@table_name}"]).id.to_s}" %>', <%= @question.id %>)" data-toggle="button" aria-pressed="false" autocomplete="off"><%= choice["#{@table_name}"] %></button>
+                        <button type="button" class="btn question-button btn-toggle" onclick="toggleButton(this, '<%= "#{@table_name}_id = #{@table.find_by(@table_name.to_s => choice["#{@table_name}"]).id.to_s}" %>', <%= @question.id %>)" data-toggle="button" aria-pressed="false" autocomplete="off"><%= choice["#{@table_name}"] %></button>
                       </div>
                   <% end %>
               <% end %>
           <% end %>
       <% end %>
-      <%= link_to("Previous", @question.previous) if @question.previous %>
-      <%= link_to("Next", @question.next) if @question.next %>
-      <%= link_to("Finish", :controller => :answers, :action => :index) if @question.next.nil? %>
+      <div style="text-align: center; width: 50%">
+        <span>
+          <%= link_to(icon('fas', 'angle-double-left', class: 'page-arrow'), @question.previous) if @question.previous %>
+          <span id="page-footer"><%= @question.position  %> of <%= Question.count %></span>
+          <%= link_to(icon('fas', 'angle-double-right', class: 'page-arrow'), @question.next) if @question.next %>
+          </span>
+      </div>
+      <div><%= link_to("Finish", :controller => :answers, :action => :index) if @question.next.nil? %></div>
     </div>
     <div class="embed-responsive embed-responsive-16by9 col-6">
       <iframe id="packing_list" class="embed-responsive-item" src="/answers?iframe=true" allowfullscreen></iframe>
@@ -86,7 +91,7 @@
             }
         }
         else if(button.style.backgroundColor == 'darkblue') {
-            button.style.backgroundColor = '#007bff';
+            button.style.backgroundColor = '#97d2ff';
             $.post( "/answers/remove", { text: text, id: id} );
         }
         else {

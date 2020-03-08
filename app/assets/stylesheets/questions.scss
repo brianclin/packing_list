@@ -14,5 +14,26 @@
 
 .question-button {
   text-transform: uppercase;
-  font-family: 'Avenir-Light'
+  font-family: 'Avenir-Light';
+  background-color: #97d2ff;
+  color: white
+}
+
+.question-button:hover {
+  color: #fff;
+  border-color: #285e8e;
+}
+
+.page-arrow {
+  color: #8ba6da;
+}
+
+#page-footer {
+  color: #8ba6da;
+  font-family: 'Avenir-Heavy';
+}
+
+#footer {
+  text-align: center;
+  width: 50%;
 }
