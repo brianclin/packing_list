@@ -35,5 +35,14 @@
 
 #footer {
   text-align: center;
-  width: 50%;
+}
+
+
+#question-container {
+  background-image: url(asset_path('questions.png'));
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 20px;
+  height: 80%;
+  color: white;
 }

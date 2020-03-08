@@ -1,5 +1,6 @@
-<div class="container-fluid">
-  <h1 style="text-align: center; width: 50%"><%= icon('fas', 'luggage-cart', class: 'header-icon') %></h1>
+<div class="container-fluid" style="height: 100vh;">
+  <h1 style="text-align: center;"><%= icon('fas', 'luggage-cart', class: 'header-icon') %></h1>
+  <div id="packing-container" class="px-5 py-3">
   <p>
     <% unless @combined_list.nil? %>
         <% @combined_list.keys.each do |key| %>
@@ -38,6 +39,7 @@
       <% end %>
   <% end %>
   </p>
+  </div>
 
   <%= link_to 'Restart', questions_path unless params[:iframe] %>
 </div>

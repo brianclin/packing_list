@@ -25,8 +25,6 @@ class Item < ApplicationRecord
         'shoes'
     ]
     clothing_list.each do |clothing_item|
-      puts name
-      puts clothing_item
       if name.downcase.include? clothing_item
         return true
       end

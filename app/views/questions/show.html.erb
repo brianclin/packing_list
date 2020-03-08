@@ -1,7 +1,8 @@
 <div class="container-fluid" style="height: 100vh;">
   <div class="row" style="height: 100vh;">
     <div class="col-6">
-      <h1 style="text-align: center; width: 50%"><%= icon('fa', 'plane', class: 'header-icon') %></h1>
+      <h1 style="text-align: center;"><%= icon('fa', 'plane', class: 'header-icon') %></h1>
+      <div id="question-container" class="px-5 py-3">
       <h2 class="question-header"> Question <%= @question.position %> </h2>
       <p class=""question-text"><%= @question.question %></p>
       <% if @question.id == 1 %>
@@ -61,7 +62,8 @@
               <% end %>
           <% end %>
       <% end %>
-      <div style="text-align: center; width: 50%">
+      </div>
+      <div style="text-align: center;position: fixed; bottom: 0; width: 50%">
         <span>
           <%= link_to(icon('fas', 'angle-double-left', class: 'page-arrow'), @question.previous) if @question.previous %>
           <span id="page-footer"><%= @question.position  %> of <%= Question.count %></span>
@@ -90,7 +92,7 @@
                 button.style.opacity = "1";
             }
         }
-        else if(button.style.backgroundColor == 'darkblue') {
+        else if(button.style.backgroundColor == 'rgb(139, 166, 218)') {
             button.style.backgroundColor = '#97d2ff';
             $.post( "/answers/remove", { text: text, id: id} );
         }
@@ -99,7 +101,7 @@
                 button.style.backgroundColor ='lightgray';
             }
             else
-                button.style.backgroundColor ='darkblue';
+                button.style.backgroundColor = 'rgb(139, 166, 218)';
             $.post( "/answers", { text: text, id: id} );
         }
         setTimeout(function(){document.getElementById('packing_list').contentWindow.location.reload(true);}, 100)
