@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class TransportationsController < ApplicationController
-  before_action :set_transportation, only: [:show, :edit, :update, :destroy]
+  before_action :set_transportation, only: %i[show edit update destroy]
 
   # GET /transportations
   # GET /transportations.json
@@ -9,8 +11,7 @@ class TransportationsController < ApplicationController
 
   # GET /transportations/1
   # GET /transportations/1.json
-  def show
-  end
+  def show; end
 
   # GET /transportations/new
   def new
@@ -18,8 +19,7 @@ class TransportationsController < ApplicationController
   end
 
   # GET /transportations/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /transportations
   # POST /transportations.json
@@ -28,7 +28,9 @@ class TransportationsController < ApplicationController
 
     respond_to do |format|
       if @transportation.save
-        format.html { redirect_to @transportation, notice: 'Transportation was successfully created.' }
+        format.html do
+          redirect_to @transportation, notice: 'Transportation was successfully created.'
+        end
         format.json { render :show, status: :created, location: @transportation }
       else
         format.html { render :new }
@@ -42,7 +44,9 @@ class TransportationsController < ApplicationController
   def update
     respond_to do |format|
       if @transportation.update(transportation_params)
-        format.html { redirect_to @transportation, notice: 'Transportation was successfully updated.' }
+        format.html do
+          redirect_to @transportation, notice: 'Transportation was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: @transportation }
       else
         format.html { render :edit }
@@ -56,19 +60,22 @@ class TransportationsController < ApplicationController
   def destroy
     @transportation.destroy
     respond_to do |format|
-      format.html { redirect_to transportations_url, notice: 'Transportation was successfully destroyed.' }
+      format.html do
+        redirect_to transportations_url, notice: 'Transportation was successfully destroyed.'
+      end
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_transportation
-      @transportation = Transportation.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def transportation_params
-      params.require(:transportation).permit(:transportation)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_transportation
+    @transportation = Transportation.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def transportation_params
+    params.require(:transportation).permit(:transportation)
+  end
 end
