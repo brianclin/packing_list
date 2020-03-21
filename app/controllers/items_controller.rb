@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class ItemsController < ApplicationController
-  before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :set_item, only: %i[show edit update destroy]
 
   # GET /items
   # GET /items.json
@@ -9,8 +11,7 @@ class ItemsController < ApplicationController
 
   # GET /items/1
   # GET /items/1.json
-  def show
-  end
+  def show; end
 
   # GET /items/new
   def new
@@ -19,7 +20,6 @@ class ItemsController < ApplicationController
     @events = Event.all
     @transportations = Transportation.all
     @weathers = Weather.all
-
   end
 
   # GET /items/1/edit
@@ -71,13 +71,24 @@ class ItemsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_item
-      @item = Item.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def item_params
-      params.require(:item).permit(:name, :category_id, :event_id, :weather_id, :transporation_id, :international, :normal, :domestic, :always)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_item
+    @item = Item.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def item_params
+    params.require(:item).permit(
+      :name,
+      :category_id,
+      :event_id,
+      :weather_id,
+      :transporation_id,
+      :international,
+      :normal,
+      :domestic,
+      :always
+    )
+  end
 end
