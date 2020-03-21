@@ -2,7 +2,18 @@ require: rubocop-rails
 
 AllCops:
   Exclude:
-   - 'Gemfile'
+    - 'Gemfile'
+    - 'Rakefile'
+    - 'test/**/*'
+    - 'app/channels/**/*'
+    - 'bin/**/*'
+    - 'config/**/*'
+    - 'db/schema.rb'
+    - 'db/seeds.rb'
+    - 'config.ru'
+    - 'db/migrate/**/*'
+    - 'db/data/**/*'
+    - 'app/views/**/*'
 
 Style/Documentation:
   Enabled: false
@@ -21,3 +32,7 @@ Style/HashTransformKeys:
 
 Style/HashTransformValues:
   Enabled: true
+
+Rails/Output:
+  Exclude:
+    - 'db/add_categories.rb'

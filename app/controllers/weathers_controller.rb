@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class WeathersController < ApplicationController
-  before_action :set_weather, only: [:show, :edit, :update, :destroy]
+  before_action :set_weather, only: %i[show edit update destroy]
 
   # GET /weathers
   # GET /weathers.json
@@ -9,8 +11,7 @@ class WeathersController < ApplicationController
 
   # GET /weathers/1
   # GET /weathers/1.json
-  def show
-  end
+  def show; end
 
   # GET /weathers/new
   def new
@@ -18,8 +19,7 @@ class WeathersController < ApplicationController
   end
 
   # GET /weathers/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /weathers
   # POST /weathers.json
@@ -62,13 +62,14 @@ class WeathersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_weather
-      @weather = Weather.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def weather_params
-      params.require(:weather).permit(:weather)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_weather
+    @weather = Weather.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def weather_params
+    params.require(:weather).permit(:weather)
+  end
 end
