@@ -1,5 +1,9 @@
 require: rubocop-rails
 
+AllCops:
+  Exclude:
+   - 'Gemfile'
+
 Documentation:
   Enabled: false
 
