@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AnswersController < ApplicationController
-  before_action :set_answer, only: [:show, :edit, :update, :destroy]
+  before_action :set_answer, only: %i[show edit update destroy]
 
   # GET /answers
   # GET /answers.json
@@ -10,29 +10,28 @@ class AnswersController < ApplicationController
     @days = @answer.get_days
     @choice = @answer.get_choices
     @combined_list = @answer.list
-    unless @days.empty? || @days.nil?
-      case @days
-      when '0-3 days'
-        @combined_list[:clothing].push('1 pair of extra contacts')
-        @combined_list[:clothing].push('3-5 pairs of socks')
-        @combined_list[:clothing].push('3-5 pairs of underwear')
-      when '4-7 days'
-        @combined_list[:clothing].push('1 pair of extra contacts')
-        @combined_list[:clothing].push('7-9 pairs of socks')
-        @combined_list[:clothing].push('7-9 pairs of underwear')
-      when '8-14 days'
-        @combined_list[:clothing].push('2 pairs of extra contacts')
-        @combined_list[:clothing].push('10-17 pairs of socks')
-        @combined_list[:clothing].push('10-17 pairs of underwear')
-      when 'Washer/Dryer'
-        @combined_list[:clothing].push('2 pairs of extra contacts')
-        @combined_list[:clothing].push('7-9 pairs of socks')
-        @combined_list[:clothing].push('7-9 pairs of underwear')
-      when 'No Washer/Dryer'
-        @combined_list[:clothing].push('2 pairs of extra contacts')
-        @combined_list[:clothing].push('17+ pairs of socks')
-        @combined_list[:clothing].push('17+ pairs of underwear')
-      end
+    return if @days.empty? || @days.nil?
+    case @days
+    when '0-3 days'
+      @combined_list[:clothing].push('1 pair of extra contacts')
+      @combined_list[:clothing].push('3-5 pairs of socks')
+      @combined_list[:clothing].push('3-5 pairs of underwear')
+    when '4-7 days'
+      @combined_list[:clothing].push('1 pair of extra contacts')
+      @combined_list[:clothing].push('7-9 pairs of socks')
+      @combined_list[:clothing].push('7-9 pairs of underwear')
+    when '8-14 days'
+      @combined_list[:clothing].push('2 pairs of extra contacts')
+      @combined_list[:clothing].push('10-17 pairs of socks')
+      @combined_list[:clothing].push('10-17 pairs of underwear')
+    when 'Washer/Dryer'
+      @combined_list[:clothing].push('2 pairs of extra contacts')
+      @combined_list[:clothing].push('7-9 pairs of socks')
+      @combined_list[:clothing].push('7-9 pairs of underwear')
+    when 'No Washer/Dryer'
+      @combined_list[:clothing].push('2 pairs of extra contacts')
+      @combined_list[:clothing].push('17+ pairs of socks')
+      @combined_list[:clothing].push('17+ pairs of underwear')
     end
   end
 
