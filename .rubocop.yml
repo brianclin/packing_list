@@ -4,7 +4,7 @@ AllCops:
   Exclude:
    - 'Gemfile'
 
-Documentation:
+Style/Documentation:
   Enabled: false
 
 Layout/LineLength:
