@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Answer < ApplicationRecord
   @@choices = []
   @@days = ''
@@ -18,9 +20,9 @@ class Answer < ApplicationRecord
   end
 
   def add_choice(value)
-    if @@choices.nil? || @@choices != value
-      @@choices.push value
-    end
+    return unless @@choices.nil? || @@choices != value
+
+    @@choices.push value
   end
 
   def get_days
@@ -47,9 +49,8 @@ class Answer < ApplicationRecord
     @@removed_items = items
   end
 
-
   def list
-    combined_list  = { clothing: [], electronics: [], toiletries: [], accessories: [] }
+    combined_list = { clothing: [], electronics: [], toiletries: [], accessories: [] }
     unless @@choices.empty? || @@choices.nil?
       query = @@choices.join(' OR ')
       list = Item.where(query).all
@@ -65,12 +66,12 @@ class Answer < ApplicationRecord
         combined_list[:accessories].push(item.name)
       end
     end
-    puts @@removed_items
-    puts @@choices
-    combined_list.each do |key, val|
+    Rails.logger.info @@removed_items
+    Rails.logger.info @@choices
+    combined_list.each do |key, _val|
       combined_list[key] = combined_list[key] - @@removed_items
     end
-    puts combined_list
+    Rails.logger.info combined_list
     combined_list
   end
 end
