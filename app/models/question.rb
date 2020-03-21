@@ -2,10 +2,10 @@
 
 class Question < ApplicationRecord
   def previous
-    Question.where(["id < ?", id]).last
+    Question.where(['id < ?', id]).last
   end
 
   def next
-    Question.where(["id > ?", id]).first
+    Question.find_by(['id > ?', id])
   end
 end
