@@ -13,7 +13,9 @@ def add_attribute(attribute_name)
   sub_category = class_name.constantize.find_by("#{class_name.downcase}": attribute_name.capitalize)
   unless sub_category
     class_name.constantize.new("#{class_name.downcase}": attribute_name.capitalize.to_s).save
-    sub_category = class_name.constantize.find_by("#{class_name.downcase}": attribute_name.capitalize)
+    sub_category = class_name.constantize.find_by(
+      "#{class_name.downcase}": attribute_name.capitalize
+    )
   end
   id = sub_category.id
   class_name_id = class_name.downcase + '_id'
@@ -60,14 +62,26 @@ def add_questions
     question = line[0].strip
     table_name = line[1].nil? ? '' : line[1].strip
     question_exists = Question.find_by(id: $INPUT_LINE_NUMBER)
-    question_updates = Question.find_by(question: question, position: $INPUT_LINE_NUMBER, table_name: table_name)
+    question_updates = Question.find_by(
+      question: question,
+      position: $INPUT_LINE_NUMBER,
+      table_name: table_name
+    )
     if !question_exists
       puts("Adding question #{question} #{table_name} #{$INPUT_LINE_NUMBER}")
-      question = Question.new(question: question, position: $INPUT_LINE_NUMBER, table_name: table_name)
+      question = Question.new(
+        question: question,
+        position: $INPUT_LINE_NUMBER,
+        table_name: table_name
+      )
       question.save
     elsif !question_updates
       puts("Updated question #{$INPUT_LINE_NUMBER}")
-      question_exists.update(question: question, position: $INPUT_LINE_NUMBER, table_name: table_name)
+      question_exists.update(
+        question: question,
+        position: $INPUT_LINE_NUMBER,
+        table_name: table_name
+      )
       question_exists.save
     end
   end
