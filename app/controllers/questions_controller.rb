@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class QuestionsController < ApplicationController
-  before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :set_question, only: %i[show edit update destroy]
   before_action :clear_session, only: [:index]
 
   # GET /questions
@@ -13,11 +13,11 @@ class QuestionsController < ApplicationController
   # GET /questions/1
   # GET /questions/1.json
   def show
-    unless @question.table_name.empty?
-      @table_name = @question.table_name.singularize
-      @table = @table_name.capitalize.constantize
-      @choices = @table.all
-    end
+    return if @question.table_name.empty?
+
+    @table_name = @question.table_name.singularize
+    @table = @table_name.capitalize.constantize
+    @choices = @table.all
   end
 
   # GET /questions/new
