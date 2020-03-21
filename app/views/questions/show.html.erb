@@ -66,7 +66,7 @@
       <div style="text-align: center;position: fixed; bottom: 0; width: 50%">
         <span>
           <%= link_to(icon('fas', 'angle-double-left', class: 'page-arrow'), @question.previous) if @question.previous %>
-          <span id="page-footer"><%= @question.position  %> of <%= Question.count %></span>
+          <span id="page-footer"><%= @question.position %> of <%= Question.count %></span>
           <%= link_to(icon('fas', 'angle-double-right', class: 'page-arrow'), @question.next) if @question.next %>
           <%= link_to("Finish", :controller => :answers, :action => :index) if @question.next.nil? %>
           </span>
