@@ -36,7 +36,7 @@ class AnswersController < ApplicationController
   def create
     @answer = Answer.new
     if params[:id] == '5'
-      @answer.set_days(params[:text])
+      @answer.days = params[:text]
     else
       @answer.add_choice(params[:text])
     end
