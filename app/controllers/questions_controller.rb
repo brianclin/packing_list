@@ -84,8 +84,8 @@ class QuestionsController < ApplicationController
 
   def clear_session
     @answer = Answer.new
-    @answer.set_choices([])
-    @answer.set_days('')
-    @answer.set_removed_items([])
+    @answer.choices = []
+    @answer.days = ''
+    @answer.removed_items = []
   end
 end

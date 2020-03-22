@@ -7,8 +7,8 @@ class AnswersController < ApplicationController
   # GET /answers.json
   def index
     @answer = Answer.new
-    @days = @answer.get_days
-    @choice = @answer.get_choices
+    @days = @answer.days
+    @choice = @answer.choices
     @combined_list = @answer.list
     return if @days.empty? || @days.nil?
 

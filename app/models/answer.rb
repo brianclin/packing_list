@@ -11,11 +11,11 @@ class Answer < ApplicationRecord
     @@choices.push('category_id = 2')
   end
 
-  def get_choices
+  def choices
     @@choices
   end
 
-  def set_choices(choice)
+  def choices=(choice)
     @@choices = choice
   end
 
@@ -25,11 +25,11 @@ class Answer < ApplicationRecord
     @@choices.push value
   end
 
-  def get_days
+  def days
     @@days
   end
 
-  def set_days(days)
+  def days=(days)
     @@days = days
   end
 
@@ -45,7 +45,7 @@ class Answer < ApplicationRecord
     @@removed_items
   end
 
-  def set_removed_items(items)
+  def removed_items=(items)
     @@removed_items = items
   end
 
