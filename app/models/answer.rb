@@ -5,7 +5,7 @@ class Answer < ApplicationRecord
   @@days = ''
   @@removed_items = []
 
-  def initialize
+  def initialize(_attributes = {})
     @@choices.push('always = true')
     @@choices.push('category_id = 1')
     @@choices.push('category_id = 2')
