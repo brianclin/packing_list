@@ -4,30 +4,28 @@
   <p>
     <% unless @combined_list.nil? %>
         <% @combined_list.keys.each do |key| %>
-          <!--<% if !@combined_list[key].empty? %>-->
-            <div>
-              <span>
-              <h4 id="category-header">
-              <% case key %>
-              <% when :clothing %>
-                <%= icon('fas', 'tshirt', class: 'header-icon') %>
-              <% when :electronics %>
-                  <%= icon('fas', 'laptop', class: 'header-icon') %>
-              <% when :toiletries %>
-                  <%= icon('fas', 'tooth', class: 'header-icon') %>
-              <% else %>
-                  <%= icon('fas', 'shopping-bag', class: 'header-icon') %>
-              <% end %>
-              <%= key.upcase %>
-              </h4>
-              </span>
-            </div>
-          <!--<% end %>-->
+          <div>
+            <span>
+            <h4 id="category-header">
+            <% case key %>
+            <% when :clothing %>
+              <%= icon('fas', 'tshirt', class: 'header-icon') %>
+            <% when :electronics %>
+                <%= icon('fas', 'laptop', class: 'header-icon') %>
+            <% when :toiletries %>
+                <%= icon('fas', 'tooth', class: 'header-icon') %>
+            <% else %>
+                <%= icon('fas', 'shopping-bag', class: 'header-icon') %>
+            <% end %>
+            <%= key.upcase %>
+            </h4>
+            </span>
+          </div>
           <% @combined_list[key].each do |item| %>
             <div class="row">
             <div class="col">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" />
+                <input class="form-check-input" type="checkbox" value="">
                 <label class="form-check-label packing-item">
                   <%= item %>
                 </label>
