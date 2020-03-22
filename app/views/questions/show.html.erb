@@ -49,14 +49,14 @@
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                           <h6 class="dropdown-header">What type of flight?</h6>
-                          <button type="button" class="dropdown-item" onclick="toggleButton(this, '<%= "#{@table_name}_id = #{@table.find_by(@table_name.to_s => choice["#{@table_name}"]).id.to_s} AND normal = true" %>', <%= @question.id.to_json %>)" data-toggle="button" aria-pressed="false" autocomplete="off">Under 5 Hours</button>
-                          <button type="button" class="dropdown-item" onclick="toggleButton(this, '<%= "#{@table_name}_id = #{@table.find_by(@table_name.to_s => choice["#{@table_name}"]).id.to_s}" %>', <%= @question.id.to_json %>)" data-toggle="button" aria-pressed="false" autocomplete="off">Over 5 Hours / Redeye</button>
+                          <button type="button" class="dropdown-item" onclick="toggleButton(this, '<%= "#{@table_name}_id = #{@table.find_by(@table_name.to_s => choice["#{@table_name}"]).id.to_s} AND normal = true".to_json %>', <%= @question.id.to_json %>)" data-toggle="button" aria-pressed="false" autocomplete="off">Under 5 Hours</button>
+                          <button type="button" class="dropdown-item" onclick="toggleButton(this, '<%= "#{@table_name}_id = #{@table.find_by(@table_name.to_s => choice["#{@table_name}"]).id.to_s}".to_json %>', <%= @question.id.to_json %>)" data-toggle="button" aria-pressed="false" autocomplete="off">Over 5 Hours / Redeye</button>
                         </div>
                       </div>
                       </p>
                   <% else %>
                       <div class="row-fluid form-group">
-                        <button type="button" class="btn question-button btn-toggle" onclick="toggleButton(this, '<%= "#{@table_name}_id = #{@table.find_by(@table_name.to_s => choice["#{@table_name}"]).id.to_s}" %>', <%= @question.id.to_json %>)" data-toggle="button" aria-pressed="false" autocomplete="off"><%= choice["#{@table_name}"] %></button>
+                        <button type="button" class="btn question-button btn-toggle" onclick="toggleButton(this, '<%= "#{@table_name}_id = #{@table.find_by(@table_name.to_s => choice["#{@table_name}"]).id.to_s}".to_json %>', <%= @question.id.to_json %>)" data-toggle="button" aria-pressed="false" autocomplete="off"><%= choice["#{@table_name}"] %></button>
                       </div>
                   <% end %>
               <% end %>
@@ -86,6 +86,7 @@
     });
 
     function toggleButton(button, text, id) {
+        text = text.replace(/"/g, '')
         if(button.style.backgroundColor == 'lightgray') {
             if (button.classList.contains('dropdown-item')) {
                 button.style.backgroundColor = "transparent";
