@@ -2,39 +2,69 @@
 
 require 'English'
 
-def add_attribute(attribute_name)
-  class_name = case attribute_name
-               when 'Toiletries', 'Electronics', 'Clothes' then class_name = 'Category'
-               when 'Snowy', 'Rainy', 'Cold', 'Hot', 'Regular', 'Warm' then class_name = 'Weather'
-               when 'Hiking', 'Walking', 'Clubbing', 'Snow Sports', 'Swimming' then class_name = 'Event'
-               when 'Airplane', 'Boat', 'Bus' then class_name = 'Transportation'
-               end
-  puts(attribute_name.capitalize)
-  sub_category = class_name.constantize.find_by("#{class_name.downcase}": attribute_name.capitalize)
-  unless sub_category
-    class_name.constantize.new("#{class_name.downcase}": attribute_name.capitalize.to_s).save
-    sub_category = class_name.constantize.find_by(
-      "#{class_name.downcase}": attribute_name.capitalize
+def subcategory_id(class_name, attribute_name)
+  subcategory = class_name.constantize.find_by("#{class_name.downcase}": attribute_name)
+  unless subcategory
+    class_name.constantize.new("#{class_name.downcase}": attribute_name.to_s).save
+    subcategory = class_name.constantize.find_by(
+      "#{class_name.downcase}": attribute_name
     )
   end
-  id = sub_category.id
+  subcategory.id
+end
+
+def add_item(item_name, class_name_id)
+  puts('Adding item ' + item_name)
+  item = Item.new(name: item_name, "#{class_name_id}": id)
+  item.save
+end
+
+def update_item(item_name, class_name_id, id)
+  puts('Updated category for ' + line)
+  item_name.send(class_name_id + '=', id)
+  item_name.save
+end
+
+def item_needs_update?(item, class_name_id, id)
+  !item || !Item.find_by("#{class_name_id}": id)
+end
+
+def update_items(file, id, class_name)
   class_name_id = class_name.downcase + '_id'
-  File.open("db/data\/" + attribute_name.downcase + '.txt').each do |line|
+  File.open(file).each do |line|
     line = line.strip
     item_exists = Item.find_by(name: line)
-    if !item_exists
-      puts('Adding item ' + line)
-      item = Item.new(name: line, "#{class_name.downcase}_id": id)
-      item.save
+    if item_needs_update?(item_exists, class_name_id, id)
+      add_item(line, class_name_id)
     elsif item_exists.send(class_name_id).nil?
-      puts('Updated category for ' + line)
-      item_exists.send(class_name_id + '=', id)
-      item_exists.save
-    elsif !Item.find_by("#{class_name_id}": id)
-      puts('Adding item ' + line)
-      item = Item.new(name: line, "#{class_name.downcase}_id": id)
-      item.save
+      update_item(item_exists, class_name_id, id)
     end
+  end
+end
+
+def add_attribute(attribute_name)
+  class_name = case attribute_name
+               when 'Toiletries', 'Electronics', 'Clothes' then 'Category'
+               when 'Snowy', 'Rainy', 'Cold', 'Hot', 'Regular', 'Warm' then 'Weather'
+               when 'Hiking', 'Walking', 'Clubbing', 'Snow Sports', 'Swimming' then 'Event'
+               when 'Airplane', 'Boat', 'Bus' then 'Transportation'
+               end
+  puts(attribute_name.capitalize)
+  id = subcategory_id(class_name, attribute_name.capitalize)
+  file = "db/data\/" + attribute_name.downcase + '.txt'
+  update_items(file, id, class_name)
+end
+
+def update_item_boolean(item_name, attribute_name)
+  item_exists = Item.find_by(name: item_name)
+  if !item_exists
+    puts('Adding item ' + item_name)
+    item = Item.new(name: item_name, "#{attribute_name}": true)
+    item.save
+  elsif item_exists.send(attribute_name).nil?
+    puts('Updated category for ' + item_name)
+    item_exists.send(attribute_name + '=', true)
+    item_exists.save
   end
 end
 
@@ -42,47 +72,59 @@ def add_attribute_boolean(attribute_name)
   puts(attribute_name.capitalize)
   File.open("db\/data\/" + attribute_name.downcase + '.txt').each do |line|
     line = line.strip
-    item_exists = Item.find_by(name: line)
-    if !item_exists
-      puts('Adding item ' + line)
-      item = Item.new(name: line, "#{attribute_name.downcase}": true)
-      item.save
-    elsif item_exists.send(attribute_name.downcase).nil?
-      puts('Updated category for ' + line)
-      item_exists.send(attribute_name.downcase + '=', true)
-      item_exists.save
-    end
+    update_item_boolean(line, attribute_name.downcase)
   end
+end
+
+def add_question(question, table_name, line_number)
+  puts("Adding question #{question} #{table_name} #{line_number}")
+  question = Question.new(
+    question: question,
+    position: line_number,
+    table_name: table_name
+  )
+  question.save
+end
+
+def update_question(question, table_name, line_number)
+  puts("Updated question #{line_number}")
+  question_exists.update(
+    question: question,
+    position: line_number,
+    table_name: table_name
+  )
+  question_exists.save
+end
+
+def question_exists?(line_number)
+  Question.find_by(id: line_number)
+end
+
+def question_updates?(question, table_name, line_number)
+  Question.find_by(
+    question: question,
+    position: line_number,
+    table_name: table_name
+  )
+end
+
+def parse_question(line)
+  line = line.split(',')
+  question = line[0].strip
+  table_name = line[1].nil? ? '' : line[1].strip
+  [question, table_name]
 end
 
 def add_questions
   puts('Questions')
   File.open('db/data/questions.txt').each do |line|
-    line = line.split(',')
-    question = line[0].strip
-    table_name = line[1].nil? ? '' : line[1].strip
-    question_exists = Question.find_by(id: $INPUT_LINE_NUMBER)
-    question_updates = Question.find_by(
-      question: question,
-      position: $INPUT_LINE_NUMBER,
-      table_name: table_name
-    )
-    if !question_exists
-      puts("Adding question #{question} #{table_name} #{$INPUT_LINE_NUMBER}")
-      question = Question.new(
-        question: question,
-        position: $INPUT_LINE_NUMBER,
-        table_name: table_name
-      )
-      question.save
-    elsif !question_updates
-      puts("Updated question #{$INPUT_LINE_NUMBER}")
-      question_exists.update(
-        question: question,
-        position: $INPUT_LINE_NUMBER,
-        table_name: table_name
-      )
-      question_exists.save
+    question_info = parse_question(line)
+    question = question_info[0]
+    table_name = question_info[1]
+    if !question_exists?($INPUT_LINE_NUMBER)
+      add_question(question, table_name, $INPUT_LINE_NUMBER)
+    elsif !question_updates?(question, table_name, $INPUT_LINE_NUMBER)
+      update_question(question, table_name, $INPUT_LINE_NUMBER)
     end
   end
 end
