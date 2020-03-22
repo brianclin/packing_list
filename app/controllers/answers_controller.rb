@@ -11,28 +11,8 @@ class AnswersController < ApplicationController
     @choice = @answer.get_choices
     @combined_list = @answer.list
     return if @days.empty? || @days.nil?
-    case @days
-    when '0-3 days'
-      @combined_list[:clothing].push('1 pair of extra contacts')
-      @combined_list[:clothing].push('3-5 pairs of socks')
-      @combined_list[:clothing].push('3-5 pairs of underwear')
-    when '4-7 days'
-      @combined_list[:clothing].push('1 pair of extra contacts')
-      @combined_list[:clothing].push('7-9 pairs of socks')
-      @combined_list[:clothing].push('7-9 pairs of underwear')
-    when '8-14 days'
-      @combined_list[:clothing].push('2 pairs of extra contacts')
-      @combined_list[:clothing].push('10-17 pairs of socks')
-      @combined_list[:clothing].push('10-17 pairs of underwear')
-    when 'Washer/Dryer'
-      @combined_list[:clothing].push('2 pairs of extra contacts')
-      @combined_list[:clothing].push('7-9 pairs of socks')
-      @combined_list[:clothing].push('7-9 pairs of underwear')
-    when 'No Washer/Dryer'
-      @combined_list[:clothing].push('2 pairs of extra contacts')
-      @combined_list[:clothing].push('17+ pairs of socks')
-      @combined_list[:clothing].push('17+ pairs of underwear')
-    end
+
+    add_clothing_by_days(@days)
   end
 
   # GET /answers/1
@@ -104,5 +84,31 @@ class AnswersController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def answer_params
     params.require(:answer).permit(:question_id, :choice_id)
+  end
+
+  def add_clothing_by_days(days)
+    case days
+    when '0-3 days'
+      add_number_clothing(@combined_list, '1', '3-5', '3-5')
+    when '4-7 days'
+      add_number_clothing(@combined_list, '1', '7-9', '7-9')
+    when '8-14 days'
+      add_number_clothing(@combined_list, '2', '10-17', '10-17')
+    when 'Washer/Dryer'
+      add_number_clothing(@combined_list, '2', '7-9', '7-9')
+    when 'No Washer/Dryer'
+      add_number_clothing(@combined_list, '2', '17+', '17+')
+    end
+  end
+
+  def add_number_clothing(list, contacts, socks, underwear)
+    contacts_string = if contacts == '1'
+                        '1 pair of contacts'
+                      else
+                        "#{contacts} pairs of extra contacts"
+                      end
+    list[:clothing].push(contacts_string)
+    list[:clothing].push("#{socks} pairs of socks")
+    list[:clothing].push("#{underwear} pairs of underwear")
   end
 end
