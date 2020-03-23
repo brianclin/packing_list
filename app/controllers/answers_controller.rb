@@ -88,7 +88,7 @@ class AnswersController < ApplicationController
 
   def remove_days(days)
     case days
-    when '0-3 days', '4-7 days', '8-14 days'
+    when '0-3 days', '4-7 days', '8-14 days', 'Washer/Dryer', 'No Washer/Dryer'
       @answer.days = []
     end
   end
