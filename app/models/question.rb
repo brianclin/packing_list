@@ -6,6 +6,6 @@ class Question < ApplicationRecord
   end
 
   def next
-    Question.find_by(['id > ?', id])
+    Question.find_by(id: id + 1)
   end
 end
