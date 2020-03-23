@@ -69,8 +69,8 @@ class AnswersController < ApplicationController
 
   def remove
     @answer = Answer.new
+    remove_everything(@answer, params[:text])
     @answer.remove_from_list(params[:item]) if params[:item]
-    @answer.remove_choice(params[:text])
     redirect_back fallback_location: { action: 'show', id: params[:id] }
   end
 
@@ -79,6 +79,18 @@ class AnswersController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_answer
     @answer = Answer.find(params[:id])
+  end
+
+  def remove_everything(answer, text)
+    remove_days(text)
+    answer.remove_choice(text)
+  end
+
+  def remove_days(days)
+    case days
+    when '0-3 days', '4-7 days', '8-14 days'
+      @answer.days = []
+    end
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
