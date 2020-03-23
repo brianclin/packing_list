@@ -64,7 +64,7 @@
           <%= link_to(icon('fas', 'angle-double-left', class: 'page-arrow'), @question.previous) if @question.previous %>
           <span id="page-footer"><%= @question.position %> of <%= Question.count %></span>
           <%= link_to(icon('fas', 'angle-double-right', class: 'page-arrow'), @question.next) if @question.next %>
-          <%= link_to("Finish", :controller => :answers, :action => :index) if @question.next.nil? %>
+          <%= link_to("Finish", {:controller => :answers, :action => :index}, id: 'page-footer') if @question.next.nil? %>
           </span>
       </div>
     </div>
@@ -80,7 +80,6 @@
             'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
         }
     });
-
 
     // 'rgb(139, 166, 218)' dark blue
     // '#97d2ff' light blue

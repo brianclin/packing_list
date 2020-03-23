@@ -37,7 +37,6 @@
   text-align: center;
 }
 
-
 #question-container {
   background-image: url(asset_path('questions.png'));
   background-repeat: no-repeat;
@@ -45,4 +44,8 @@
   border-radius: 30px;
   height: 90%;
   color: white;
+}
+
+#restart-button {
+  padding-top: 0.1em;
 }

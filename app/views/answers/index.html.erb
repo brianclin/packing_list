@@ -42,8 +42,9 @@
   <% end %>
   </p>
   </div>
-
-  <%= link_to 'Restart', questions_path unless params[:iframe] %>
+  <% unless params[:iframe] %>
+    <%= button_to 'Restart', questions_path, method: :get, class: "btn question-button btn-toggle", form: {id:  "restart-button"} %>
+  <% end %>
 </div>
 <script>
     $.ajaxSetup({
