@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .packing-item {
-  font-family: 'Avenir-Medium';
+  font-family: 'Avenir-Medium', sans-serif;
   text-transform: uppercase;
   color: #8ba6da;
 }
@@ -24,7 +24,7 @@
   padding-top: 0.5em;
 }
 
-.outer{
+.outer {
   background-image: url(asset_path('packing.png'));
   background-repeat: no-repeat;
   background-size: cover;

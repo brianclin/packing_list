@@ -2,21 +2,19 @@
 // They will automatically be included in application.scss.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-
-
 .question-header {
-  font-family: 'Avenir-Medium';
+  font-family: 'Avenir-Medium', sans-serif;
 }
 
 .question-text {
-  font-family: 'Avenir-Light'
+  font-family: 'Avenir-Light', sans-serif;
 }
 
 .question-button {
   text-transform: uppercase;
-  font-family: 'Avenir-Light';
+  font-family: 'Avenir-Light', sans-serif;
   background-color: #97d2ff;
-  color: white
+  color: white;
 }
 
 .question-button:hover {
@@ -30,7 +28,7 @@
 
 #page-footer {
   color: #8ba6da;
-  font-family: 'Avenir-Heavy';
+  font-family: 'Avenir-Heavy', sans-serif;
 }
 
 #footer {
