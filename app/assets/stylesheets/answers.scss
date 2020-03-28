@@ -9,13 +9,32 @@
 }
 
 #packing-container {
+  color: white;
+}
+
+#packing-container-index {
   background-image: url(asset_path('packing.png'));
   background-repeat: no-repeat;
   background-size: cover;
-  border-radius: 30px;
   color: white;
+  border-radius: 30px;
 }
 
 #category-header {
   padding-top: 0.5em;
+}
+
+.outer{
+  background-image: url(asset_path('packing.png'));
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-top: 0.5em;
+  width: 100%;
+  border-radius: 30px;
+}
+
+html {
+  body {
+    background-color: transparent;
+  }
 }
