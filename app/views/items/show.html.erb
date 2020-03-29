@@ -1,49 +1,39 @@
 <p id="notice"><%= notice %></p>
-
 <p>
   <strong>Name:</strong>
   <%= @item.name %>
 </p>
-
 <p>
   <strong>Category:</strong>
   <%= @item.category_id %>
 </p>
-
 <p>
   <strong>Event:</strong>
   <%= @item.event_id %>
 </p>
-
 <p>
   <strong>Weather:</strong>
   <%= @item.weather_id %>
 </p>
-
 <p>
   <strong>Transporation:</strong>
   <%= @item.transportation_id %>
 </p>
-
 <p>
   <strong>International:</strong>
   <%= @item.international %>
 </p>
-
 <p>
   <strong>Normal:</strong>
   <%= @item.normal %>
 </p>
-
 <p>
   <strong>Domestic:</strong>
   <%= @item.domestic %>
 </p>
-
 <p>
   <strong>Always:</strong>
   <%= @item.always %>
 </p>
-
 <%= link_to 'Edit', edit_item_path(@item) %> |
 <%= link_to 'Back', items_path %>

@@ -2,67 +2,67 @@
   <% unless params[:iframe] %>
     <h1 style="text-align: center;"><%= icon('fas', 'luggage-cart', class: 'header-icon') %></h1>
     <div id="packing-container-index" class="px-5 py-4">
-  <% else %>
+    <% else %>
       <div id="packing-container" class="px-5 py-4">
-  <% end %>
-  <p>
-    <% unless @combined_list.nil? %>
-        <% @combined_list.keys.each do |key| %>
-          <div>
-            <span>
-            <h4 id="category-header">
-            <% case key %>
-            <% when :clothing %>
-              <%= icon('fas', 'tshirt', class: 'header-icon') %>
-            <% when :electronics %>
-                <%= icon('fas', 'laptop', class: 'header-icon') %>
-            <% when :toiletries %>
-                <%= icon('fas', 'tooth', class: 'header-icon') %>
-            <% else %>
-                <%= icon('fas', 'shopping-bag', class: 'header-icon') %>
-            <% end %>
-            <%= key.upcase %>
-            </h4>
+      <% end %>
+      <p>
+        <% unless @combined_list.nil? %>
+          <% @combined_list.keys.each do |key| %>
+            <div>
+              <span>
+                <h4 id="category-header">
+                  <% case key %>
+                  <% when :clothing %>
+                  <%= icon('fas', 'tshirt', class: 'header-icon') %>
+                  <% when :electronics %>
+                  <%= icon('fas', 'laptop', class: 'header-icon') %>
+                  <% when :toiletries %>
+                  <%= icon('fas', 'tooth', class: 'header-icon') %>
+                <% else %>
+                  <%= icon('fas', 'shopping-bag', class: 'header-icon') %>
+                <% end %>
+                <%= key.upcase %>
+              </h4>
             </span>
           </div>
           <% @combined_list[key].each do |item| %>
             <div class="row">
-            <div class="col">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="">
-                <label class="form-check-label packing-item">
-                  <%= item %>
-                </label>
-                <% unless params[:iframe] %>
+              <div class="col">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="">
+                  <label class="form-check-label packing-item">
+                    <%= item %>
+                  </label>
+                  <% unless params[:iframe] %>
                     <div class="d-inline">
                       <button class="btn-link" id="trash-icon" onclick="deleteItem(this)"><%= icon('fa', 'trash') %></button>
                     </div>
-                <% end %>
+                  <% end %>
+                </div>
               </div>
             </div>
-            </div>
+          <% end %>
+        <% end %>
       <% end %>
-      <% end %>
-  <% end %>
-  </p>
+    </p>
   </div>
   <% unless params[:iframe] %>
     <%= button_to 'Restart', questions_path, method: :get, class: "btn question-button btn-toggle", form: {id:  "restart-button"} %>
   <% end %>
 </div>
 <script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
+  $.ajaxSetup({
+      headers: {
+          'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+      }
+  });
 
-    function deleteItem(button) {
-        inline = button.parentNode
-        formCheck = inline.parentNode
-        col = formCheck.parentNode
-        col.removeChild(formCheck)
-        item = formCheck.getElementsByClassName("form-check-label")[0].textContent
-        $.post( "/answers/remove", { item: item} )
-    }
+  function deleteItem(button) {
+      inline = button.parentNode
+      formCheck = inline.parentNode
+      col = formCheck.parentNode
+      col.removeChild(formCheck)
+      item = formCheck.getElementsByClassName("form-check-label")[0].textContent
+      $.post( "/answers/remove", { item: item} )
+  }
 </script>

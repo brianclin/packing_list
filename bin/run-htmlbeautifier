@@ -1,0 +1,17 @@
+#!/bin/bash
+
+find app/views | grep .html.erb | xargs htmlbeautifier
+
+change=0
+files=$(find app/views | grep .html.erb)
+for file in $files
+do
+  htmlbeautifier < "$file" > /tmp/output
+  if [ -s /tmp/output ];
+  then
+    htmlbeautifier "$file"
+    change=1
+  fi
+done
+rm /tmp/output
+exit $change

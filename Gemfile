@@ -57,3 +57,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'rubocop-rails', require: false
 
 gem 'erb_lint', require: false
+
+gem 'htmlbeautifier', require: false

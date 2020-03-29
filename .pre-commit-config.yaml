@@ -17,6 +17,11 @@ repos:
   - id: stylelint
     additional_dependencies: ['stylelint@13.2.1', 'stylelint-config-standard@20.0.0']
 
+- repo: https://github.com/gruntwork-io/pre-commit
+  rev: v0.1.4
+  hooks:
+  - id: shellcheck
+
 - repo: local
   hooks:
   - id: rubocop
