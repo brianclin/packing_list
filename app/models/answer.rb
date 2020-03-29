@@ -49,12 +49,7 @@ class Answer < ApplicationRecord
     @@removed_items = items
   end
 
-  def list
-    combined_list = { clothing: [], electronics: [], toiletries: [], accessories: [] }
-    unless @@choices.empty? || @@choices.nil?
-      query = @@choices.join(' OR ')
-      list = Item.where(query).all
-    end
+  def sort_list_by_category(combined_list, list)
     list.each do |item|
       if item.clothing?
         combined_list[:clothing].push(item.name)
@@ -66,6 +61,15 @@ class Answer < ApplicationRecord
         combined_list[:accessories].push(item.name)
       end
     end
+  end
+
+  def list
+    combined_list = { clothing: [], electronics: [], toiletries: [], accessories: [] }
+    unless @@choices.empty? || @@choices.nil?
+      query = @@choices.join(' OR ')
+      list = Item.where(query).all
+    end
+    sort_list_by_category(combined_list, list)
     Rails.logger.info @@removed_items
     Rails.logger.info @@choices
     combined_list.each do |key, _val|

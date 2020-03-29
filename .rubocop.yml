@@ -38,3 +38,6 @@ Style/HashTransformValues:
 Rails/Output:
   Exclude:
     - 'db/add_categories.rb'
+
+Style/ClassVars:
+  Enabled: false

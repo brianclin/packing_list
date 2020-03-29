@@ -1,0 +1,31 @@
+exclude: >
+  (?x)^(
+    db/data |
+    public/assets
+  )
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v2.3.0
+  hooks:
+  - id: check-yaml
+  - id: end-of-file-fixer
+  - id: trailing-whitespace
+
+- repo: https://github.com/awebdeveloper/pre-commit-stylelint
+  rev: 0.0.2
+  hooks:
+  - id: stylelint
+    additional_dependencies: ['stylelint@13.2.1', 'stylelint-config-standard@20.0.0']
+
+- repo: local
+  hooks:
+  - id: rubocop
+    name: rubocop
+    entry: ./bin/run-rubocop
+    language: script
+    pass_filenames: false
+  - id: erblint
+    name: erblint
+    entry: ./bin/run-erblint
+    language: script
+    pass_filenames: false
