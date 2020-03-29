@@ -88,7 +88,7 @@
         text = text.replace(/"/g, '')
         if(button.style.backgroundColor == 'lightgray') {
             if (button.classList.contains('dropdown-item')) {
-                button.style.backgroundColor = "";
+                button.setAttribute('style', "background-color: '' !important");
                 button.style.opacity = "1";
                 buttons = button.parentElement.children;
                 change = true;
@@ -98,22 +98,22 @@
                     }
                 }
                 if (change) {
-                    button.closest('div.dropdown-menu').previousElementSibling.style.backgroundColor = '#97d2ff';
+                    button.closest('div.dropdown-menu').previousElementSibling.setAttribute('style', "background-color: #97d2ff !important");
                 }
                 $.post( "/answers/remove", { text: text, id: id} );
             }
         }
         else if(button.style.backgroundColor == 'rgb(139, 166, 218)') {
-            button.style.backgroundColor = '#97d2ff';
+            button.setAttribute('style', "background-color: #97d2ff !important");
             $.post( "/answers/remove", { text: text, id: id} );
         }
         else {
             if(button.classList.contains('dropdown-item')) {
-                button.style.backgroundColor ='lightgray';
-                button.closest('div.dropdown-menu').previousElementSibling.style.backgroundColor = 'rgb(139, 166, 218)';
+                button.setAttribute('style', "background-color: lightgray !important");
+                button.closest('div.dropdown-menu').previousElementSibling.setAttribute('style', "background-color: rgb(139, 166, 218) !important");
             }
             else
-                button.style.backgroundColor = 'rgb(139, 166, 218)';
+                button.setAttribute('style', "background-color: rgb(139, 166, 218) !important");
             $.post( "/answers", { text: text, id: id} );
         }
         setTimeout(function(){document.getElementById('packing_list').contentWindow.location.reload(true);}, 100)
