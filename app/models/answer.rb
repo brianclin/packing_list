@@ -51,15 +51,30 @@ class Answer < ApplicationRecord
 
   def sort_list_by_category(combined_list, list)
     list.each do |item|
-      if item.clothing?
-        combined_list[:clothing].push(item.name)
-      elsif item.category_id == 1
-        combined_list[:toiletries].push(item.name)
-      elsif item.category_id == 2
-        combined_list[:electronics].push(item.name)
-      else
-        combined_list[:accessories].push(item.name)
-      end
+      push_item(combined_list, item)
+    end
+  end
+
+  def push_item(combined_list, item)
+    category = determine_category(item)
+    combined_list[category].push(item.name)
+  end
+
+  def determine_category(item)
+    if item.clothing?
+      :clothing
+    elsif item.category_id == 1
+      :toiletries
+    elsif item.category_id == 2
+      :electronics
+    else
+      :accessories
+    end
+  end
+
+  def remove_items(combined_list, items)
+    combined_list.each do |key, _val|
+      combined_list[key] = combined_list[key] - items
     end
   end
 
@@ -72,9 +87,7 @@ class Answer < ApplicationRecord
     sort_list_by_category(combined_list, list)
     Rails.logger.info @@removed_items
     Rails.logger.info @@choices
-    combined_list.each do |key, _val|
-      combined_list[key] = combined_list[key] - @@removed_items
-    end
+    remove_items(combined_list, @@removed_items)
     Rails.logger.info combined_list
     combined_list
   end

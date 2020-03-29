@@ -13,7 +13,7 @@ def subcategory_id(class_name, attribute_name)
   subcategory.id
 end
 
-def add_item(item_name, class_name_id)
+def add_item(item_name, class_name_id, id)
   puts('Adding item ' + item_name)
   item = Item.new(name: item_name, "#{class_name_id}": id)
   item.save
@@ -35,7 +35,7 @@ def update_items(file, id, class_name)
     line = line.strip
     item_exists = Item.find_by(name: line)
     if item_needs_update?(item_exists, class_name_id, id)
-      add_item(line, class_name_id)
+      add_item(line, class_name_id, id)
     elsif item_exists.send(class_name_id).nil?
       update_item(item_exists, class_name_id, id)
     end
