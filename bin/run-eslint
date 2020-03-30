@@ -1,0 +1,3 @@
+#!/bin/bash
+
+eslint --fix './app/assets/javascripts/custom/**/*.js'

@@ -34,3 +34,8 @@ repos:
     entry: ./bin/run-erblint
     language: script
     pass_filenames: false
+  - id: eslint
+    name: eslint
+    entry: ./bin/run-eslint
+    language: script
+    pass_filenames: false
