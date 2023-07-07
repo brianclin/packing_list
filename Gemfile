@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby "2.7.0"
+ruby "3.2.2"
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
@@ -8,9 +8,9 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.2.2'
+gem 'rails', '~> 6.1'
 # Use postgresql as the database for Active Record
-gem 'pg', '~>  1.2.3'
+gem 'pg', '~>  1.5.3'
 # Use Puma as the app server
 gem 'puma', '~> 4.3.3'
 # Use SCSS for stylesheets
@@ -33,7 +33,7 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'bootstrap', '~> 4.4.1'
 gem 'jquery-rails'
-gem 'font-awesome-sass'
+gem "font-awesome-sass", "~> 6.4.0"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
