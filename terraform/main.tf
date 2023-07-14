@@ -78,6 +78,12 @@ resource "aws_elastic_beanstalk_environment" "packing_list" {
   }
 
   setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "RAILS_SERVE_STATIC_FILES"
+    value     = true
+  }
+
+  setting {
     namespace = "aws:elasticbeanstalk:environment"
     name      = "EnvironmentType"
     value     = "SingleInstance"
