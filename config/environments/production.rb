@@ -90,4 +90,5 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.hosts << /[a-z0-9\-.]+\.us-east-1\.elasticbeanstalk\.com/
+  config.hosts << 'pack.brianclin.dev'
 end

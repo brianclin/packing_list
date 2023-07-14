@@ -82,8 +82,8 @@ test:
 #
 production:
   <<: *default
-  database: postgres
-  username: postgres
-  password: databasepassword
-  host: database-1.cgtr5zhw8i8m.us-east-1.rds.amazonaws.com
-  post: 5432
+  database: <%= ENV['DATABASE_NAME'] %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: <%= ENV['DATABASE_HOST'] %>
+  port: 5432
