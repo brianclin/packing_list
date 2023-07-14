@@ -1,0 +1,35 @@
+on:
+  push:
+    branches: [main]
+
+env:
+  AWS_REGION: "us-east-1"
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  terraform-apply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: git clone the repository
+        uses: actions/checkout@v3
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v2.2.0
+        with:
+          role-to-assume: arn:aws:iam::433766115278:role/ghActionsRole
+          role-session-name: GitHub_to_AWS_via_FederatedOIDC
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      - name: Build, tag, and push docker image to Amazon ECR
+        env:
+            REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+            REPOSITORY: rails
+            IMAGE_TAG: latest
+        run: |
+            docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
+            docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+  
