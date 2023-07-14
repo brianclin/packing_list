@@ -82,6 +82,8 @@ test:
 #
 production:
   <<: *default
-  database: untitled_production
-  username: packing_list_app
-  password: <%= ENV['UNTITLED_DATABASE_PASSWORD'] %>
+  database: postgres
+  username: postgres
+  password: databasepassword
+  host: database-1.cgtr5zhw8i8m.us-east-1.rds.amazonaws.com
+  post: 5432
