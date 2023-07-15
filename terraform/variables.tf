@@ -1,4 +1,4 @@
 variable "application_version" {
-  type = string
+  type    = string
   default = "latest"
 }

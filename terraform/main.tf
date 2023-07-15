@@ -3,8 +3,8 @@ resource "aws_s3_bucket" "packing_list" {
 }
 
 resource "aws_s3_object" "packing_list" {
-  bucket = aws_s3_bucket.packing_list.id
-  key    = "Dockerrun.aws.json"
+  bucket  = aws_s3_bucket.packing_list.id
+  key     = "Dockerrun.aws.json"
   content = templatefile("Dockerrun.aws.json.tftpl", { tag = var.application_version })
 }
 
