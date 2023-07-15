@@ -1,7 +1,7 @@
 {
     "AWSEBDockerrunVersion": "1",
     "Image": {
-      "Name": "433766115278.dkr.ecr.us-east-1.amazonaws.com/rails:latest"
+      "Name": "433766115278.dkr.ecr.us-east-1.amazonaws.com/packing_list:latest"
     },
     "Ports": [
       {

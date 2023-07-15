@@ -1,3 +1,5 @@
+name: Push Image
+
 on:
   workflow_run:
     workflows: ["Create ECR Repo"]
