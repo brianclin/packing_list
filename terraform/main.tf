@@ -5,7 +5,7 @@ resource "aws_s3_bucket" "packing_list" {
 resource "aws_s3_object" "packing_list" {
   bucket = aws_s3_bucket.packing_list.id
   key    = "Dockerrun.aws.json"
-  source = "Dockerrun.aws.json"
+  content = templatefile("Dockerrun.aws.json.tftpl", { tag = var.application_version })
 }
 
 resource "aws_elastic_beanstalk_application" "packing_list" {
@@ -13,7 +13,7 @@ resource "aws_elastic_beanstalk_application" "packing_list" {
 }
 
 resource "aws_elastic_beanstalk_application_version" "packing_list" {
-  name        = "latest"
+  name        = var.application_version
   application = aws_elastic_beanstalk_application.packing_list.name
   bucket      = aws_s3_bucket.packing_list.id
   key         = aws_s3_object.packing_list.id
