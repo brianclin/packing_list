@@ -3,8 +3,6 @@ name: Create ECR Repo
 on:
   push:
     branches: [main]
-    paths:
-      - "**/ecr.tf"
   
 env:
   AWS_REGION: "us-east-1"
