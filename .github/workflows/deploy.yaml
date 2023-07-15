@@ -28,14 +28,14 @@ jobs:
     - name: tf plan
       run: |
         cd terraform
-        terraform init 
+        terraform init
         terraform validate
         terraform plan --target=aws_ecr_repository.packing_list -var 'application_version=${{ github.sha }}'
     - name: tf apply
       run: |
         cd terraform
         terraform apply -auto-approve --target=aws_ecr_repository.packing_list -var 'application_version=${{ github.sha }}'
-        
+
   push-to-ecr:
     needs: create-repo
     runs-on: ubuntu-latest
@@ -79,7 +79,7 @@ jobs:
     - name: tf plan
       run: |
         cd terraform
-        terraform init 
+        terraform init
         terraform validate
         terraform plan -var 'application_version=${{ github.sha }}'
     - name: tf apply

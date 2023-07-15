@@ -14,14 +14,14 @@ def subcategory_id(class_name, attribute_name)
 end
 
 def add_item(item_name, class_name_id, id)
-  puts('Adding item ' + item_name)
+  puts("Adding item #{item_name}")
   item = Item.new(name: item_name, "#{class_name_id}": id)
   item.save
 end
 
-def update_item(item_name, class_name_id, id)
-  puts('Updated category for ' + line)
-  item_name.send(class_name_id + '=', id)
+def update_item(item_name, _class_name_id, id)
+  puts("Updated category for #{line}")
+  item_name.send("#{class_name_id}=", id)
   item_name.save
 end
 
@@ -30,7 +30,7 @@ def item_needs_update?(item, class_name_id, id)
 end
 
 def update_items(file, id, class_name)
-  class_name_id = class_name.downcase + '_id'
+  class_name_id = "#{class_name.downcase}_id"
   File.open(file).each do |line|
     line = line.strip
     item_exists = Item.find_by(name: line)
@@ -51,26 +51,26 @@ def add_attribute(attribute_name)
                end
   puts(attribute_name.capitalize)
   id = subcategory_id(class_name, attribute_name.capitalize)
-  file = "db/data\/" + attribute_name.downcase + '.txt'
+  file = "db/data/#{attribute_name.downcase}.txt"
   update_items(file, id, class_name)
 end
 
 def update_item_boolean(item_name, attribute_name)
   item_exists = Item.find_by(name: item_name)
   if !item_exists
-    puts('Adding item ' + item_name)
+    puts("Adding item #{item_name}")
     item = Item.new(name: item_name, "#{attribute_name}": true)
     item.save
   elsif item_exists.send(attribute_name).nil?
-    puts('Updated category for ' + item_name)
-    item_exists.send(attribute_name + '=', true)
+    puts("Updated category for #{item_name}")
+    item_exists.send("#{attribute_name}=", true)
     item_exists.save
   end
 end
 
 def add_attribute_boolean(attribute_name)
   puts(attribute_name.capitalize)
-  File.open("db\/data\/" + attribute_name.downcase + '.txt').each do |line|
+  File.open("db/data/#{attribute_name.downcase}.txt").each do |line|
     line = line.strip
     update_item_boolean(line, attribute_name.downcase)
   end
@@ -79,9 +79,9 @@ end
 def add_question(question, table_name, line_number)
   puts("Adding question #{question} #{table_name} #{line_number}")
   question = Question.new(
-    question: question,
+    question:,
     position: line_number,
-    table_name: table_name
+    table_name:
   )
   question.save
 end
@@ -89,9 +89,9 @@ end
 def update_question(question, table_name, line_number)
   puts("Updated question #{line_number}")
   question_exists.update(
-    question: question,
+    question:,
     position: line_number,
-    table_name: table_name
+    table_name:
   )
   question_exists.save
 end
@@ -102,9 +102,9 @@ end
 
 def question_updates?(question, table_name, line_number)
   Question.find_by(
-    question: question,
+    question:,
     position: line_number,
-    table_name: table_name
+    table_name:
   )
 end
 
@@ -134,15 +134,11 @@ def add_categories
   File.open('db/data/categories.txt').each do |line|
     line = line.strip
     category_exists = Category.find_by(category: line)
-    if !category_exists
-      puts("Adding category #{line}")
-      category = Category.new(category: line)
-      category.save
-    elsif !category_exists
-      puts("Updated category #{line}")
-      category_exists.update(category: line)
-      category_exists.save
-    end
+    next if category_exists
+
+    puts("Adding category #{line}")
+    category = Category.new(category: line)
+    category.save
   end
 end
 

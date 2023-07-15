@@ -1,6 +1,7 @@
 require: rubocop-rails
 
 AllCops:
+  NewCops: enable
   Exclude:
     - 'Gemfile'
     - 'Rakefile'
@@ -26,19 +27,15 @@ Layout/LineLength:
 Metrics/MethodLength:
   Max: 15
 
-# rubocop 0.80.0
-#Style/HashEachMethods:
-#  Enabled: true
-#
-#Style/HashTransformKeys:
-#  Enabled: true
-#
-#Style/HashTransformValues:
-#  Enabled: true
-
 Rails/Output:
   Exclude:
     - 'db/add_categories.rb'
 
 Style/ClassVars:
+  Enabled: false
+
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+Lint/MissingSuper:
   Enabled: false
