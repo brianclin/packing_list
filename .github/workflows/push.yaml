@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 jobs:
-  terraform-apply:
+  push-to-ecr:
     runs-on: ubuntu-latest
     steps:
       - name: git clone the repository
@@ -32,4 +32,3 @@ jobs:
         run: |
             docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
             docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
-  
