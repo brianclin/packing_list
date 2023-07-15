@@ -1,6 +1,8 @@
 on:
-  push:
-    branches: [main]
+  workflow_run:
+    workflows: ["Create ECR Repo"]
+    types:
+      - completed
 
 env:
   AWS_REGION: "us-east-1"
@@ -27,7 +29,7 @@ jobs:
       - name: Build, tag, and push docker image to Amazon ECR
         env:
             REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-            REPOSITORY: rails
+            REPOSITORY: packing_list
             IMAGE_TAG: latest
         run: |
             docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .

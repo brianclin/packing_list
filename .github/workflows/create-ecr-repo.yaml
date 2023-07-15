@@ -1,0 +1,41 @@
+name: Create ECR Repo
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**/ecr.tf"
+  
+env:
+  AWS_REGION: "us-east-1"
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  create-repo:
+    runs-on: ubuntu-latest
+    steps:
+    - name: git clone the repository
+      uses: actions/checkout@v3
+    - name: configure aws credentials
+      uses: aws-actions/configure-aws-credentials@v2.2.0
+      with:
+        role-to-assume: arn:aws:iam::433766115278:role/ghActionsRole
+        role-session-name: GitHub_to_AWS_via_FederatedOIDC
+        aws-region: ${{ env.AWS_REGION }}
+    - name: setup terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.1.7
+    - name: tf plan
+      run: |
+        cd terraform
+        terraform init 
+        terraform validate
+        terraform plan --target=aws_ecr_repository.packing_list
+    - name: tf apply
+      run: |
+        cd terraform
+        terraform apply -auto-approve --target=aws_ecr_repository.packing_list
