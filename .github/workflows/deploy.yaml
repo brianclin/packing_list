@@ -35,8 +35,33 @@ jobs:
       run: |
         cd terraform
         terraform apply -auto-approve --target=aws_ecr_repository.packing_list -var 'application_version=${{ github.sha }}'
-    
+        
+  push-to-ecr:
+    needs: create-repo
+    runs-on: ubuntu-latest
+    steps:
+      - name: git clone the repository
+        uses: actions/checkout@v3
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v2.2.0
+        with:
+          role-to-assume: arn:aws:iam::433766115278:role/ghActionsRole
+          role-session-name: GitHub_to_AWS_via_FederatedOIDC
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      - name: Build, tag, and push docker image to Amazon ECR
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          REPOSITORY: packing_list
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
+          docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+
   deploy-to-eb:
+    needs: push-to-ecr
     runs-on: ubuntu-latest
     steps:
     - name: git clone the repository
@@ -61,26 +86,3 @@ jobs:
       run: |
         cd terraform
         terraform apply -auto-approve -var 'application_version=${{ github.sha }}'
-
-  push-to-ecr:
-    runs-on: ubuntu-latest
-    steps:
-      - name: git clone the repository
-        uses: actions/checkout@v3
-      - name: configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v2.2.0
-        with:
-          role-to-assume: arn:aws:iam::433766115278:role/ghActionsRole
-          role-session-name: GitHub_to_AWS_via_FederatedOIDC
-          aws-region: ${{ env.AWS_REGION }}
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-      - name: Build, tag, and push docker image to Amazon ECR
-        env:
-          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          REPOSITORY: packing_list
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
-            docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
-            docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
