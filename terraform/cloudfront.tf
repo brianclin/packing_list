@@ -2,6 +2,10 @@ data "aws_cloudfront_cache_policy" "cache_optimized" {
   name = "Managed-CachingOptimized"
 }
 
+data "aws_cloudfront_origin_request_policy" "allviewer" {
+  name = "Managed-AllViewer"
+}
+
 data "aws_acm_certificate" "cert" {
   domain = local.root_domain_name
   types  = ["AMAZON_ISSUED"]
@@ -30,6 +34,7 @@ module "cdn" {
     viewer_protocol_policy = "redirect-to-https"
     use_forwarded_values   = false
     cache_policy_id        = data.aws_cloudfront_cache_policy.cache_optimized.id
+    origin_request_policy_id = data.aws_cloudfront_origin_request_policy.allviewer.id
 
     allowed_methods = ["GET", "HEAD", "OPTIONS"]
     cached_methods  = ["GET", "HEAD"]
