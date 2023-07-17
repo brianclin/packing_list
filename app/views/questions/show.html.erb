@@ -2,7 +2,7 @@
   <div class="row" style="height: 100vh;">
     <div class="col-6">
       <h1 style="text-align: center;"><%= icon('fa', 'plane', class: 'header-icon') %></h1>
-      <div id="question-container" class="px-5 py-5">
+      <div id="question-container">
         <h2 class="question-header"> Question <%= @question.position %> </h2>
         <p class="question-text"><%= @question.question %></p>
         <% if @question.id == 1 %>
