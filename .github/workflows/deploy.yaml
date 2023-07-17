@@ -59,9 +59,74 @@ jobs:
         run: |
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+  
+  create-db:
+    runs-on: ubuntu-latest
+    steps:
+    - name: git clone the repository
+      uses: actions/checkout@v3
+    - name: configure aws credentials
+      uses: aws-actions/configure-aws-credentials@v2.2.0
+      with:
+        role-to-assume: arn:aws:iam::433766115278:role/ghActionsRole
+        role-session-name: GitHub_to_AWS_via_FederatedOIDC
+        aws-region: ${{ env.AWS_REGION }}
+    - name: setup terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.1.7
+    - name: tf plan
+      run: |
+        cd terraform
+        terraform init
+        terraform validate
+        terraform plan --target=aws_db_instance.packing_list
+    - name: tf apply
+      run: |
+        cd terraform
+        terraform apply -auto-approve --target=aws_db_instance.packing_list --target=aws_ssm_parameter.secret_key_base
+
+  seed-db:
+    needs: create-db
+    runs-on: ubuntu-latest
+    steps:
+    - name: git clone the repository
+      uses: actions/checkout@v3
+    - name: configure aws credentials
+      uses: aws-actions/configure-aws-credentials@v2.2.0
+      with:
+        role-to-assume: arn:aws:iam::433766115278:role/ghActionsRole
+        role-session-name: GitHub_to_AWS_via_FederatedOIDC
+        aws-region: ${{ env.AWS_REGION }}
+    - name: setup terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.1.7
+    - name: setup ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.2.2
+        bundler-cache: true
+    - name: setup db
+      run: |
+        cd terraform
+        terraform init
+        terraform apply -refresh-only -auto-approve
+        export DATABASE_HOST="$(terraform-bin output -raw db_host)"
+        cd ..
+        sudo apt-get -yqq install libpq-dev
+        gem install bundler:1.17.3
+        bundle install --jobs 4 --retry 3
+        export RAILS_ENV="production"
+        export DATABASE_NAME="packing_list"
+        export DATABASE_USERNAME="postgres"
+        export DATABASE_PASSWORD="$(aws ssm get-parameter --name /packing_list/database_password --with-decryption --query "Parameter.Value" --output text)"
+        export SECRET_KEY_BASE="$(aws ssm get-parameter --name /packing_list/secret_key_base --with-decryption --query "Parameter.Value" --output text)"
+        bundle exec rails db:migrate
+        bundle exec rails r db/add_categories.rb
 
   deploy-to-eb:
-    needs: push-to-ecr
+    needs: [push-to-ecr, seed-db]
     runs-on: ubuntu-latest
     steps:
     - name: git clone the repository
