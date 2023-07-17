@@ -55,14 +55,9 @@ jobs:
         uses: docker/setup-buildx-action@v2
       - name: Build, tag, and push docker image to Amazon ECR
         uses: docker/build-push-action@v4
-        env:
-          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          REPOSITORY: packing_list
-          IMAGE_TAG: ${{ github.sha }}
         with:
           push: true
-          tags: $REGISTRY/$REPOSITORY:$IMAGE_TAG
-          cache-from: type=gha
+          tags: ${{ steps.login-ecr.outputs.registry }}/packing_list/:${{ github.sha }}
           cache-to: type=gha,mode=max
   
   create-db:
