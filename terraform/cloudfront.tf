@@ -36,7 +36,7 @@ module "cdn" {
     cache_policy_id        = data.aws_cloudfront_cache_policy.cache_optimized.id
     origin_request_policy_id = data.aws_cloudfront_origin_request_policy.allviewer.id
 
-    allowed_methods = ["GET", "HEAD", "OPTIONS"]
+    allowed_methods = ["GET", "HEAD", "OPTIONS", "POST", "PUT", "PATCH", "DELETE"]
     cached_methods  = ["GET", "HEAD"]
     compress        = true
     query_string    = true
