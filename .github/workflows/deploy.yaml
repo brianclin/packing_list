@@ -59,6 +59,7 @@ jobs:
           push: true
           tags: ${{ steps.login-ecr.outputs.registry }}/packing_list:${{ github.sha }}
           cache-to: type=gha,mode=max
+          cache-from: type=gha
   
   create-db:
     runs-on: ubuntu-latest
