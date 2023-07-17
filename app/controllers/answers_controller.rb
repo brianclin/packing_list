@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class AnswersController < ApplicationController
+  skip_before_action :verify_authenticity_token
   before_action :set_answer, only: %i[show edit update destroy]
 
   # GET /answers
