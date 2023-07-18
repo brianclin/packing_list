@@ -38,7 +38,7 @@
                   </label>
                   <% unless params[:iframe] %>
                     <div class="d-inline">
-                      <button class="btn-link trash-icon" onclick="deleteItem(this)"><%= icon('fa', 'trash') %></button>
+                      <button class="btn-link trash-icon" aria-label="Delete" onclick="deleteItem(this)"><%= icon('fa', 'trash') %></button>
                     </div>
                   <% end %>
                 </div>
