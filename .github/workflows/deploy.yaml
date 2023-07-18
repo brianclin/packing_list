@@ -36,8 +36,34 @@ jobs:
         cd terraform
         terraform apply -auto-approve --target=aws_ecr_repository.packing_list -var 'application_version=${{ github.sha }}'
 
+  create-secret-key-base:
+    runs-on: ubuntu-latest
+    steps:
+    - name: git clone the repository
+      uses: actions/checkout@v3
+    - name: configure aws credentials
+      uses: aws-actions/configure-aws-credentials@v2.2.0
+      with:
+        role-to-assume: arn:aws:iam::433766115278:role/ghActionsRole
+        role-session-name: GitHub_to_AWS_via_FederatedOIDC
+        aws-region: ${{ env.AWS_REGION }}
+    - name: setup terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.1.7
+    - name: tf plan
+      run: |
+        cd terraform
+        terraform init
+        terraform validate
+        terraform plan --target=aws_ssm_parameter.secret_key_base
+    - name: tf apply
+      run: |
+        cd terraform
+        terraform apply -auto-approve --target=aws_ssm_parameter.secret_key_base
+        
   push-to-ecr:
-    needs: create-repo
+    needs: [create-repo, create-secret-key-base]
     runs-on: ubuntu-latest
     steps:
       - name: git clone the repository
@@ -48,6 +74,19 @@ jobs:
           role-to-assume: arn:aws:iam::433766115278:role/ghActionsRole
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
           aws-region: ${{ env.AWS_REGION }}
+      - name: setup ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2.2
+          bundler-cache: true
+      - name: precompile assets
+        run: |
+          sudo apt-get -yqq install libpq-dev
+          gem install bundler:1.17.3
+          bundle install --jobs 4 --retry 3
+          export RAILS_ENV="production"
+          export SECRET_KEY_BASE="$(aws ssm get-parameter --name /packing_list/secret_key_base --with-decryption --query "Parameter.Value" --output text)"
+          bundle exec rails assets:precompile
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
@@ -60,7 +99,7 @@ jobs:
           tags: ${{ steps.login-ecr.outputs.registry }}/packing_list:${{ github.sha }}
           cache-to: type=gha,mode=max
           cache-from: type=gha
-  
+
   create-db:
     runs-on: ubuntu-latest
     steps:
@@ -85,10 +124,10 @@ jobs:
     - name: tf apply
       run: |
         cd terraform
-        terraform apply -auto-approve --target=aws_db_instance.packing_list --target=aws_ssm_parameter.secret_key_base
+        terraform apply -auto-approve --target=aws_db_instance.packing_list
 
   seed-db:
-    needs: create-db
+    needs: [create-db, create-secret-key-base]
     runs-on: ubuntu-latest
     steps:
     - name: git clone the repository
