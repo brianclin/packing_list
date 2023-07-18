@@ -1,0 +1,47 @@
+/* line 5, app/assets/stylesheets/answers.scss */
+.packing-item {
+  font-family: 'Avenir-Medium', sans-serif;
+  text-transform: uppercase;
+  color: #8ba6da;
+}
+
+/* line 11, app/assets/stylesheets/answers.scss */
+#packing-container {
+  color: white;
+  padding-left: 1em;
+  padding-top: 1em;
+}
+
+/* line 17, app/assets/stylesheets/answers.scss */
+#packing-container-index {
+  background-image: url(/assets/packing-ccf9c1be7bc974e5f08b02ac468aa35a16131b576be4d88bc7b45a9b6539478e.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+  border-radius: 30px;
+  padding-left: 1em;
+  padding-top: 1em;
+}
+
+/* line 27, app/assets/stylesheets/answers.scss */
+.outer {
+  background-image: url(/assets/packing-ccf9c1be7bc974e5f08b02ac468aa35a16131b576be4d88bc7b45a9b6539478e.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-top: 0.5em;
+  width: 100%;
+  height: 90%;
+  border-radius: 30px;
+}
+
+/* line 38, app/assets/stylesheets/answers.scss */
+html body {
+  background-color: transparent;
+}
+
+/* line 43, app/assets/stylesheets/answers.scss */
+#trash-icon {
+  border: none;
+  color: #8ba6da;
+  background-color: transparent;
+}
