@@ -22,34 +22,30 @@
           <div class="row-fluid form-group">
             <button type="button" class="btn question-button btn-toggle" onclick="toggleButton(this, '8-14 days', <%= @question.id.to_json %>)" data-toggle="button" aria-pressed="false" autocomplete="off">8-14 days</button>
           </div>
-          <p>
             <div class="dropdown">
-              <button class="btn question-button dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button class="btn question-button dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                 14+ days
               </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <h6 class="dropdown-header">Is there a washer/dryer?</h6>
-                <button type="button" class="btn dropdown-item" onclick="toggleButton(this, 'Washer/Dryer', <%= @question.id.to_json %>)" data-toggle="button" aria-pressed="false" autocomplete="off">Yes</button>
-                <button type="button" class="btn dropdown-item" onclick="toggleButton(this, 'No Washer/Dryer', <%= @question.id.to_json %>)" data-toggle="button" aria-pressed="false" autocomplete="off">No</button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li><h6 class="dropdown-header">Is there a washer/dryer?</h6></li>
+                <li><button type="button" class="btn dropdown-item" onclick="toggleButton(this, 'Washer/Dryer', <%= @question.id.to_json %>)" data-toggle="button" aria-pressed="false" autocomplete="off">Yes</button></li>
+                <li><button type="button" class="btn dropdown-item" onclick="toggleButton(this, 'No Washer/Dryer', <%= @question.id.to_json %>)" data-toggle="button" aria-pressed="false" autocomplete="off">No</button></li>
               </div>
-            </div>
-          </p>
+            </ul>
         <% else %>
           <% unless @choices.nil? %>
             <% @choices.each do |choice| %>
               <% if choice["#{@table_name}"] == 'Airplane' %>
-                <p>
                   <div class="dropdown">
-                    <button class="btn question-button dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn question-button dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                       Airplane
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <h6 class="dropdown-header">What type of flight?</h6>
-                      <button type="button" class="dropdown-item" onclick="toggleButton(this, '<%= "#{@table_name}_id = #{@table.find_by(@table_name.to_s => choice["#{@table_name}"]).id.to_s} AND normal = true".to_json %>', <%= @question.id.to_json %>)" data-toggle="button" aria-pressed="false" autocomplete="off">Under 5 Hours</button>
-                      <button type="button" class="dropdown-item" onclick="toggleButton(this, '<%= "#{@table_name}_id = #{@table.find_by(@table_name.to_s => choice["#{@table_name}"]).id.to_s}".to_json %>', <%= @question.id.to_json %>)" data-toggle="button" aria-pressed="false" autocomplete="off">Over 5 Hours / Redeye</button>
-                    </div>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <li><h6 class="dropdown-header">What type of flight?</h6></li>
+                      <li><button type="button" class="dropdown-item" onclick="toggleButton(this, '<%= "#{@table_name}_id = #{@table.find_by(@table_name.to_s => choice["#{@table_name}"]).id.to_s} AND normal = true".to_json %>', <%= @question.id.to_json %>)" data-toggle="button" aria-pressed="false" autocomplete="off">Under 5 Hours</button></li>
+                      <li><button type="button" class="dropdown-item" onclick="toggleButton(this, '<%= "#{@table_name}_id = #{@table.find_by(@table_name.to_s => choice["#{@table_name}"]).id.to_s}".to_json %>', <%= @question.id.to_json %>)" data-toggle="button" aria-pressed="false" autocomplete="off">Over 5 Hours / Redeye</button></li>
+                    </ul>
                   </div>
-                </p>
               <% else %>
                 <div class="row-fluid form-group">
                   <button type="button" class="btn question-button btn-toggle" onclick="toggleButton(this, '<%= "#{@table_name}_id = #{@table.find_by(@table_name.to_s => choice["#{@table_name}"]).id.to_s}".to_json %>', <%= @question.id.to_json %>)" data-toggle="button" aria-pressed="false" autocomplete="off"><%= choice["#{@table_name}"] %></button>

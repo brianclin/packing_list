@@ -14,7 +14,7 @@ function toggleButton (button, text, id) { // eslint-disable-line no-unused-vars
         }
       }
       if (change) {
-        button.closest('div.dropdown-menu').previousElementSibling.setAttribute('style', 'background-color: #97d2ff !important')
+        button.closest('ul.dropdown-menu').previousElementSibling.setAttribute('style', 'background-color: #97d2ff !important')
       }
       $.post('/answers/remove', { text, id }) /* eslint-env jquery */
     }
@@ -24,7 +24,7 @@ function toggleButton (button, text, id) { // eslint-disable-line no-unused-vars
   } else {
     if (button.classList.contains('dropdown-item')) {
       button.setAttribute('style', 'background-color: lightgray !important')
-      button.closest('div.dropdown-menu').previousElementSibling.setAttribute('style', 'background-color: rgb(139, 166, 218) !important')
+      button.closest('ul.dropdown-menu').previousElementSibling.setAttribute('style', 'background-color: rgb(139, 166, 218) !important')
     } else { button.setAttribute('style', 'background-color: rgb(139, 166, 218) !important') }
     $.post('/answers', { text, id }) /* eslint-env jquery */
   }

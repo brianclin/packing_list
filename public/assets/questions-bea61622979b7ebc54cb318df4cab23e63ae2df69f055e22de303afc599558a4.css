@@ -1,15 +1,14 @@
-// Place all the styles related to the Questions controller here.
-// They will automatically be included in application.scss.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
+/* line 5, app/assets/stylesheets/questions.scss */
 .question-header {
   font-family: 'Avenir-Medium', sans-serif;
 }
 
+/* line 9, app/assets/stylesheets/questions.scss */
 .question-text {
   font-family: 'Avenir-Light', sans-serif;
 }
 
+/* line 13, app/assets/stylesheets/questions.scss */
 .question-button {
   text-transform: uppercase;
   font-family: 'Avenir-Light', sans-serif;
@@ -18,26 +17,31 @@
   margin-bottom: 1rem;
 }
 
+/* line 21, app/assets/stylesheets/questions.scss */
 .question-button:hover {
   color: #fff;
   border-color: #285e8e;
 }
 
+/* line 26, app/assets/stylesheets/questions.scss */
 .page-arrow {
   color: #8ba6da;
 }
 
+/* line 30, app/assets/stylesheets/questions.scss */
 #page-footer {
   color: #8ba6da;
   font-family: 'Avenir-Heavy', sans-serif;
 }
 
+/* line 35, app/assets/stylesheets/questions.scss */
 #footer {
   text-align: center;
 }
 
+/* line 39, app/assets/stylesheets/questions.scss */
 #question-container {
-  background-image: url(asset_path('questions.png'));
+  background-image: url(/assets/questions-ad29dd887c3888afbf357d0865ca69011d7708d1613aca82870a664eb184af51.png);
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 30px;
@@ -46,6 +50,7 @@
   padding: 1em;
 }
 
+/* line 49, app/assets/stylesheets/questions.scss */
 #restart-button {
   padding-top: 0.1em;
 }
