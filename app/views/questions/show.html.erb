@@ -1,5 +1,5 @@
-<div class="container-fluid" style="height: 100vh;">
-  <div class="row" style="height: 100vh;">
+<div class="container-fluid">
+  <div class="row">
     <div class="col-6">
       <h1 style="text-align: center;"><%= icon('fa', 'plane', class: 'header-icon') %></h1>
       <div id="question-container">
@@ -55,7 +55,7 @@
           <% end %>
         <% end %>
       </div>
-      <div style="text-align: center;position: fixed; bottom: 0; width: 50%">
+      <div style="text-align: center;">
         <span>
           <%= link_to(icon('fas', 'angle-double-left', class: 'page-arrow'), @question.previous) if @question.previous %>
           <span id="page-footer"><%= @question.position %> of <%= Question.count %></span>
