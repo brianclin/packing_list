@@ -1,6 +1,6 @@
-<div class="container-fluid" style="height: 100vh; background-color:transparent">
+<div class="container-fluid" background-color:transparent">
   <% unless params[:iframe] %>
-    <h1 style="text-align: center;"><%= icon('fas', 'luggage-cart', class: 'header-icon') %></h1>
+    <h1"><%= icon('fas', 'luggage-cart', class: 'header-icon') %></h1>
     <div id="packing-container-index">
     <% else %>
       <div id="packing-container">
@@ -8,7 +8,7 @@
       <p>
         <% unless @combined_list.nil? %>
           <% @combined_list.keys.each do |key| %>
-            <div>
+            <div class="text-nowrap">
               <span>
                 <h4 id="category-header">
                   <% case key %>
