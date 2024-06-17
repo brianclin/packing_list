@@ -131,7 +131,7 @@ GEM
       sassc (~> 2.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    htmlbeautifier (1.4.2)
+    htmlbeautifier (1.4.3)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     irb (0.9.6)
